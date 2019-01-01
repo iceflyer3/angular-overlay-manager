@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { AngularOverlayManagerComponent } from './angular-overlay-manager.component';
+import { ElementManager } from './internal/ElementManager';
+import { AnimationManager } from './internal/AnimationManager';
 
 @NgModule({
   imports: [
   ],
-  declarations: [AngularOverlayManagerComponent],
-  exports: [AngularOverlayManagerComponent]
+  declarations: [],
+  exports: [],
+  providers: [ElementManager, AnimationManager]
 })
 export class AngularOverlayManagerModule { }

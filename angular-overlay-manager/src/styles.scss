@@ -1,0 +1,102 @@
+/* You can add global styles to this file, and also import other style files */
+.example-container{
+    margin-left: 50rem; 
+    margin-right: 50rem; 
+    margin-top: 20rem;
+}
+
+/*
+    Apparently it is a pain to bundle css with a library when it is built. This is an issue for another day once this thing is actually done.
+
+    FOR THE TIME BEING all the various styles for the library that control animations, placements, etc... will go here. Once this thing is actually done
+    we'll move these styles into the library and figure out how to package them up with it. 
+*/
+
+// General classes
+
+.flex-container{    
+    display: flex;
+    flex-direction: row;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+// Flexbox alignment classes - Responsible for aligning the content in the proper place on the screen based on config
+
+// Horizontal classes
+.flex-left{
+    justify-content: flex-start;
+}
+
+.flex-horiz-center{
+    justify-content: center;
+}
+
+.flex-right{
+    justify-content: flex-end;
+}
+
+// Vertical classes
+.flex-top{
+    align-items: flex-start;
+}
+
+.flex-bottom{
+    align-items: flex-end;
+}
+
+.flex-vert-center{
+    align-items: center;
+}
+
+// Transition classes
+// TO-DO: I feel like these can probably be condensed into a single class since all "hiding / showing"
+//        is now done via transforms. 
+.trans-anim-slide{
+    transition: transform .8s;
+}
+
+// Animation start location classes - Responsible for positioning the element off of the screen
+.anim-slide-top{
+    //top: -100%;
+    margin: 0.5rem;
+    transform: translateY(-100vh);
+}
+
+.anim-slide-bottom{
+    transform: translateY(100vh);
+}
+
+.anim-slide-right{
+    transform: translateX(100vw);
+}
+
+.anim-slide-left{
+    transform: translateX(-100vw);
+}
+
+
+// "Location" classes - Responsible for positioning the element onto the screen
+/* 
+    TO-DO: I feel like these can probably be condensed into a single class since all "hiding / showing"
+           is now done via transforms. 
+        
+           This would be a good place to apply the concept of overlay types. Potentially one "position"
+           class per overlay type. So like position-modal or position-snackbar.
+
+           Though ideally we'll be able to find a term for all items that should be "attached" like
+           snackbars, bottomsheets, etc... are to the bottom of the screen. Something like "edgeAttached"
+           or something. 
+*/
+.position-modal{
+    //top: 0.5rem;
+    transform: translate(0, 0);
+    margin: 1rem;
+}
