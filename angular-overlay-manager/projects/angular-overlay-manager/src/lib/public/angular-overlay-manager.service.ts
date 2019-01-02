@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, INJECTOR, Inject } from '@angular/core';
 import { ComponentRef } from "@angular/core/src/render3";
 
+import { of } from 'rxjs';
+
+import { OverlayConfig } from './OverlayConfig';
 import { AnimationManager } from '../internal/AnimationManager';
 import { ElementManager } from '../internal/ElementManager';
-import { OverlayConfig } from './OverlayConfig';
-import { of } from 'rxjs';
+import { APP_CONFIG } from '../internal/app-config/ConfigDiToken';
+import { IAppConfig } from '../internal/app-config/IAppConfig';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +17,7 @@ export class AngularOverlayManagerService {
   private openComponentRef :any = null;
   private openComponentConfig: OverlayConfig = null;
 
-  constructor(private elementManager: ElementManager, private animationManager: AnimationManager) { }
+  constructor(private elementManager: ElementManager, private animationManager: AnimationManager, @Inject(APP_CONFIG) private appConfig: IAppConfig) { }
 
   public open(component: any, config: OverlayConfig){
 
@@ -50,7 +53,7 @@ export class AngularOverlayManagerService {
           setTimeout(() => {
             this.elementManager.destroyAndRemoveFromDom(this.openComponentRef);
             this.openComponentRef = null;
-          }, 800)
+          }, this.appConfig.AnimationTimeInMs)
         }
       );
     }

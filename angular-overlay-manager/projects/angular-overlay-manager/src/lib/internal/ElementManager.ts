@@ -2,16 +2,20 @@ import { ApplicationRef, ComponentFactoryResolver, Injector, Inject, Injectable,
 import { DOCUMENT } from "@angular/common";
 import { ComponentRef } from "@angular/core/src/render3";
 import { Subject, Observable } from "rxjs";
+import { APP_CONFIG } from "./app-config/ConfigDiToken";
+import { IAppConfig } from "./app-config/IAppConfig";
 
 export class ElementManager{
 
     private scrimClickSubject: Subject<any>;
+    private isProcessingScrimClick: boolean;
 
-    constructor(private appRef: ApplicationRef, private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector, @Inject(DOCUMENT) private document: any) { }
+    constructor(private appRef: ApplicationRef, private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector, @Inject(DOCUMENT) private document: any, @Inject(APP_CONFIG) private appConfig: IAppConfig) { }
 
     public createAndAddToDom(component: any): any
     {
         this.scrimClickSubject = new Subject<any>();
+        this.isProcessingScrimClick = false;
 
         let flexboxContainer = this.createFlexboxContainer();
         let containerScrim = this.createContainerScrim();
@@ -60,8 +64,21 @@ export class ElementManager{
         scrimElement.setAttribute("id", "aom-flexbox-container-scrim");
         scrimElement.classList.add("flex-container-scrim");
         scrimElement.addEventListener("click", () => { 
-            console.log('Scrim click event listener was called!');
-            this.emitScrimClickedEvent(); 
+            if (!this.isProcessingScrimClick)
+            {
+                this.isProcessingScrimClick = true;
+                this.emitScrimClickedEvent(); 
+
+                /*
+                    Prevent clicks from being spammed on the scrim after the first one for the
+                    duration of the transition.
+
+                    Allowing clicks to be spammed here will result in console errors for every
+                    click after the first. 
+                */
+                setTimeout(() => {this.isProcessingScrimClick = false;}, this.appConfig.AnimationTimeInMs);
+            }
+            
         }, false);
         
         return scrimElement;

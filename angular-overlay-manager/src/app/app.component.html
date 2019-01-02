@@ -14,6 +14,7 @@
         <option [value]="OverlayLocations.BottomLeft">Bottom Left</option>
         <option [value]="OverlayLocations.BottomMiddle">Bottom Middle</option>
         <option [value]="OverlayLocations.BottomRight">Bottom Right</option>
+        <option [value]="OverlayLocations.Center">Center Screen</option>
       </select>
     </div>
     <div class="input-group mb-3">
@@ -36,5 +37,14 @@
         <option [value]="AnimStartPoints.Right">Right</option>
       </select>
     </div>
-    <span class="btn btn-primary w-100" (click)="showOverlay()">Show Overlay</span>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="overlayTypeSelect">Type</label>
+      </div>
+      <select class="custom-select" id="overlayTypeSelect" [(ngModel)]="type">
+        <option [value]="OverlayTypes.Modal">Modal</option>
+        <option [value]="OverlayTypes.Docked">Docked</option>
+      </select>
+    </div>
+    <span class="btn btn-primary w-100" type="button" (click)="showOverlay()">Show Overlay</span>
 </div>

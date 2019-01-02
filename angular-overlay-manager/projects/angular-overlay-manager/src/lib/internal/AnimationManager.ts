@@ -5,6 +5,7 @@ import { of } from "rxjs";
 import { AnimationStartPoint } from "../public/enums/AnimationStartPoint";
 import { Location } from "../public/enums/Location";
 import { Animation } from "../public/enums/Animation";
+import { OverlayType } from "../public/enums/OverlayType";
 
 
 export class AnimationManager {
@@ -50,7 +51,7 @@ export class AnimationManager {
                 this.closeFadeAnimation(overlayElement);
                 break;
             case Animation.Slide:
-                this.closeSlideAnimation(overlayElement, config.location);
+                this.closeSlideAnimation(overlayElement, config.type);
                 break;
         }
 
@@ -66,7 +67,7 @@ export class AnimationManager {
         this.renderer.addClass(scrim, 'scrim-open');
 
         // Apply the proper "location" class to un-do translation and trigger entry transition
-        let overlayPositionClass = this.getOverlayClassForLocation(config.location);
+        let overlayPositionClass = this.getOverlayClassForType(config.type);
         this.renderer.addClass(element, overlayPositionClass); 
 
         if (config.animation === Animation.Fade)
@@ -107,10 +108,10 @@ export class AnimationManager {
         this.renderer.addClass(element, 'anim-fade');
     }
 
-    private closeSlideAnimation(element: any, location: Location)
+    private closeSlideAnimation(element: any, type: OverlayType)
     {
         // Apply the proper "location" class to un-do translation and trigger transition
-        let overlayPositionClass = this.getOverlayClassForLocation(location);
+        let overlayPositionClass = this.getOverlayClassForType(type);
         this.renderer.removeClass(element, overlayPositionClass); 
     }
 
@@ -172,10 +173,20 @@ export class AnimationManager {
         return containerClasses;
     }
 
-    private getOverlayClassForLocation(location: Location): string
+    private getOverlayClassForType(type: OverlayType): string
     {
-        // For now this is hard coded. This will be changed when different overlay types are supported.
-        let className = 'position-modal';
+        let className = '';
+        
+        switch(type)
+        {
+            case OverlayType.Modal:
+                className = 'position-modal';
+                break;
+            case OverlayType.Docked:
+                className = 'position-docked';
+                break;
+        }
+        
         return className;
     }
 

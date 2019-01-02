@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularOverlayManagerService } from 'angular-overlay-manager';
-import { OverlayConfig, Location, Animation, AnimationStartPoint, AnimationProperty } from 'angular-overlay-manager';
+import { OverlayConfig, Location, Animation, AnimationStartPoint, AnimationProperty, OverlayType } from 'angular-overlay-manager';
 import { TestModalComponent } from './test-modal/test-modal.component';
 
 @Component({
@@ -15,10 +15,12 @@ export class AppComponent {
   public Animations = Animation;
   public AnimStartPoints = AnimationStartPoint;
   public AnimProperties = AnimationProperty;
+  public OverlayTypes = OverlayType;
 
   public location: Location;
   public animation: Animation;
   public animationStartPoint: AnimationStartPoint;
+  public type: OverlayType
 
   private overlayConfig: OverlayConfig;
 
@@ -26,11 +28,13 @@ export class AppComponent {
     this.location = Location.TopLeft;
     this.animation = Animation.Slide;
     this.animationStartPoint = AnimationStartPoint.Left;
+    this.type = OverlayType.Modal;
     
     this.overlayConfig = {
       location: this.location,
       animation: this.animation,
-      animationStartPoint: this.animationStartPoint
+      animationStartPoint: this.animationStartPoint,
+      type: this.type
     };
   }
 
@@ -39,7 +43,8 @@ export class AppComponent {
     this.overlayConfig = {
       location: Number(this.location),
       animation: Number(this.animation),
-      animationStartPoint: Number(this.animationStartPoint)
+      animationStartPoint: Number(this.animationStartPoint),
+      type: Number(this.type)
     }
 
     this.overlayManager.open(TestModalComponent, this.overlayConfig);

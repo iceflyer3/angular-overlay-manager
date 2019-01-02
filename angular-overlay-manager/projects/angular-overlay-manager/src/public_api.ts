@@ -8,4 +8,5 @@ export * from './lib/public/enums/Animation';
 export * from './lib/public/enums/AnimationStartPoint';
 export * from './lib/public/enums/AnimationProperty';
 export * from './lib/public/enums/Location';
+export * from './lib/public/enums/OverlayType';
 export * from './lib/angular-overlay-manager.module';
