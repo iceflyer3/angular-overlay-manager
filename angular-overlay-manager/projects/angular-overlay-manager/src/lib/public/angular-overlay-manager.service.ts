@@ -14,7 +14,7 @@ export class AngularOverlayManagerService {
   private openComponentRef :any = null;
   private openComponentConfig: OverlayConfig = null;
 
-  constructor(private elementManager: ElementManager, private animationManager: AnimationManager) {  }
+  constructor(private elementManager: ElementManager, private animationManager: AnimationManager) { }
 
   public open(component: any, config: OverlayConfig){
 
@@ -22,6 +22,10 @@ export class AngularOverlayManagerService {
     {
       this.openComponentConfig = config;
       this.openComponentRef = this.elementManager.createAndAddToDom(component);
+      this.elementManager.onScrimClicked().subscribe((data: any) => {
+        this.close();
+      });
+
       this.animationManager.applyConfiguration(config);
     }
     else
@@ -33,7 +37,7 @@ export class AngularOverlayManagerService {
   public close(data?: any) : Promise<any>
   {
     if (this.openComponentRef !== null)
-    {
+    { 
       this.animationManager.triggerClose(this.openComponentConfig).then(
         () => {
           /* 

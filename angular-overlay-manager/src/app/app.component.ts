@@ -11,16 +11,16 @@ import { TestModalComponent } from './test-modal/test-modal.component';
 export class AppComponent {
   title = 'app';
 
-  private OverlayLocations = Location;
-  private Animations = Animation;
-  private AnimStartPoints = AnimationStartPoint;
-  private AnimProperties = AnimationProperty;
-
-  private overlayConfig: OverlayConfig;
+  public OverlayLocations = Location;
+  public Animations = Animation;
+  public AnimStartPoints = AnimationStartPoint;
+  public AnimProperties = AnimationProperty;
 
   public location: Location;
   public animation: Animation;
   public animationStartPoint: AnimationStartPoint;
+
+  private overlayConfig: OverlayConfig;
 
   constructor(private overlayManager: AngularOverlayManagerService) { 
     this.location = Location.TopLeft;

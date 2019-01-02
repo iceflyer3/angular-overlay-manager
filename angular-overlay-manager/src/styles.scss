@@ -17,7 +17,9 @@
 .flex-container{    
     display: flex;
     flex-direction: row;
+    pointer-events: none;
 
+    // Default bootstrap settings
     position: fixed;
     top: 0;
     left: 0;
@@ -26,6 +28,30 @@
     height: 100%;
     overflow: hidden;
     outline: 0;
+}
+
+.flex-container-scrim{
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1049;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+}
+
+.scrim-close{
+    opacity: 0;
+}
+
+.scrim-open{
+    opacity: 0.6;
+}
+
+.scrim-transition{
+    transition: opacity .8s;
 }
 
 // Flexbox alignment classes - Responsible for aligning the content in the proper place on the screen based on config
@@ -57,16 +83,16 @@
 }
 
 // Transition classes
-// TO-DO: I feel like these can probably be condensed into a single class since all "hiding / showing"
-//        is now done via transforms. 
 .trans-anim-slide{
     transition: transform .8s;
 }
 
-// Animation start location classes - Responsible for positioning the element off of the screen
+.trans-anim-fade{
+    transition: opacity .8s;
+}
+
+// Animation start location classes - Responsible for hiding / positioning the element off of the screen
 .anim-slide-top{
-    //top: -100%;
-    margin: 0.5rem;
     transform: translateY(-100vh);
 }
 
@@ -82,21 +108,22 @@
     transform: translateX(-100vw);
 }
 
+.anim-fade{
+    opacity: 0;
+}
+
+.anim-emerge{
+    opacity: 1;
+}
+
 
 // "Location" classes - Responsible for positioning the element onto the screen
-/* 
-    TO-DO: I feel like these can probably be condensed into a single class since all "hiding / showing"
-           is now done via transforms. 
-        
-           This would be a good place to apply the concept of overlay types. Potentially one "position"
-           class per overlay type. So like position-modal or position-snackbar.
-
-           Though ideally we'll be able to find a term for all items that should be "attached" like
-           snackbars, bottomsheets, etc... are to the bottom of the screen. Something like "edgeAttached"
-           or something. 
-*/
 .position-modal{
-    //top: 0.5rem;
-    transform: translate(0, 0);
     margin: 1rem;
+    transform: translate(0, 0);
+}
+
+.postion-docked{
+    margin: 0;
+    transform: translate(0, 0);
 }
