@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularOverlayManagerService } from 'angular-overlay-manager';
+import { Component, OnInit, Inject } from '@angular/core';
+import { AngularOverlayManagerService, OVERLAY_DATA } from 'angular-overlay-manager';
 
 @Component({
   selector: 'app-test-modal',
@@ -8,12 +8,15 @@ import { AngularOverlayManagerService } from 'angular-overlay-manager';
 })
 export class TestModalComponent implements OnInit {
 
-  constructor(private overlayService: AngularOverlayManagerService) { }
+  constructor(private overlayService: AngularOverlayManagerService, @Inject(OVERLAY_DATA) private data: any)  { 
+    
+  }
 
   ngOnInit() {
   }
 
   close() {
+    console.log(this.data);
     this.overlayService.close();
   }
 }

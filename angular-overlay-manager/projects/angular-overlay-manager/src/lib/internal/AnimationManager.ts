@@ -1,7 +1,8 @@
 import { RendererFactory2, Inject, Renderer2 } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
-import { OverlayConfig } from "../public/OverlayConfig";
 import { of } from "rxjs";
+
+import { OverlayAnimationConfig } from "../public/OverlayAnimationConfig";
 import { AnimationStartPoint } from "../public/enums/AnimationStartPoint";
 import { Location } from "../public/enums/Location";
 import { Animation } from "../public/enums/Animation";
@@ -14,7 +15,7 @@ export class AnimationManager {
 
     constructor(private rendererFactory: RendererFactory2, @Inject(DOCUMENT) private document :any) { }
 
-    public applyConfiguration(config: OverlayConfig)
+    public applyConfiguration(config: OverlayAnimationConfig)
     {
         this.renderer = this.rendererFactory.createRenderer(null, null);
         let overlayElement = this.document.getElementById("aom-overlay");
@@ -40,7 +41,7 @@ export class AnimationManager {
         this.triggerAnimation(overlayElement, containerScrim, config);
     }
 
-    public triggerClose(config: OverlayConfig): Promise<{}>{
+    public triggerClose(config: OverlayAnimationConfig): Promise<{}>{
      
         let overlayElement = this.document.getElementById("aom-overlay");
         let containerScrim = this.document.getElementById("aom-flexbox-container-scrim");
@@ -51,7 +52,7 @@ export class AnimationManager {
                 this.closeFadeAnimation(overlayElement);
                 break;
             case Animation.Slide:
-                this.closeSlideAnimation(overlayElement, config.type);
+                this.closeSlideAnimation(overlayElement);
                 break;
         }
 
@@ -61,31 +62,35 @@ export class AnimationManager {
         return of().toPromise();
     }
 
-    private triggerAnimation(element: any, scrim: any, config: OverlayConfig)
+    private triggerAnimation(element: any, scrim: any, config: OverlayAnimationConfig)
     {
         // Trigger the scrim animation
-        this.renderer.addClass(scrim, 'scrim-open');
+        this.renderer.addClass(scrim, 'aom-scrim-open');
 
         // Apply the proper "location" class to un-do translation and trigger entry transition
         let overlayPositionClass = this.getOverlayClassForType(config.type);
         this.renderer.addClass(element, overlayPositionClass); 
 
-        if (config.animation === Animation.Fade)
+        switch(config.animation)
         {
-            this.renderer.addClass(element, 'anim-emerge');
+            case Animation.Fade:
+                this.renderer.addClass(element, 'aom-anim-fade-emerge');    
+                break;
+            case Animation.Slide:
+                this.renderer.addClass(element, 'aom-anim-slide-emerge');
         }
     }
 
     private initializeScrimAnimation(scrim: any)
     {
-        this.renderer.addClass(scrim, 'scrim-transition');
-        this.renderer.addClass(scrim, 'scrim-close');
+        this.renderer.addClass(scrim, 'aom-scrim-transition');
+        this.renderer.addClass(scrim, 'aom-scrim-close');
     }
 
-    private initializeSlideAnimation(container: any, element: any, config: OverlayConfig)
+    private initializeSlideAnimation(container: any, element: any, config: OverlayAnimationConfig)
     {   
         // Configure slide transition
-        this.renderer.addClass(element, 'trans-anim-slide');
+        this.renderer.addClass(element, 'aom-trans-anim-slide');
 
         // Configure the flex container to properly align the elements on the screen
         let containerClasses = this.getContainerClassesForLocation(config.location);
@@ -97,34 +102,31 @@ export class AnimationManager {
         this.renderer.addClass(element, overlayClass);
     }
 
-    private initializeFadeAnimation(container: any, element: any, config: OverlayConfig)
+    private initializeFadeAnimation(container: any, element: any, config: OverlayAnimationConfig)
     {
-        this.renderer.addClass(element, 'trans-anim-fade');
+        this.renderer.addClass(element, 'aom-trans-anim-fade');
 
         let containerClasses = this.getContainerClassesForLocation(config.location);
         this.renderer.addClass(container, containerClasses.xAxisClass);
         this.renderer.addClass(container, containerClasses.yAxisClass);
 
-        this.renderer.addClass(element, 'anim-fade');
+        this.renderer.addClass(element, 'aom-anim-fade');
     }
 
-    private closeSlideAnimation(element: any, type: OverlayType)
+    private closeSlideAnimation(element: any)
     {
-        // Apply the proper "location" class to un-do translation and trigger transition
-        let overlayPositionClass = this.getOverlayClassForType(type);
-        this.renderer.removeClass(element, overlayPositionClass); 
+        this.renderer.removeClass(element, "aom-anim-slide-emerge"); 
     }
 
     private closeFadeAnimation(element: any)
     {
-        this.renderer.removeClass(element, 'anim-emerge');
+        this.renderer.removeClass(element, 'aom-anim-fade-emerge');
     }
 
     private closeScrimAnimation(scrim: any)
     {
-        this.renderer.removeClass(scrim, 'scrim-open');
+        this.renderer.removeClass(scrim, 'aom-scrim-open');
     }
-	
 
     private getContainerClassesForLocation(location: Location): { xAxisClass: string, yAxisClass: string }
     {
@@ -136,17 +138,17 @@ export class AnimationManager {
             case Location.TopLeft:
             case Location.BottomLeft:
             case Location.LeftMiddle:
-                containerClasses.xAxisClass = 'flex-left';
+                containerClasses.xAxisClass = 'aom-flex-left';
                 break;
             case Location.TopRight:
             case Location.BottomRight:
             case Location.RightMiddle:
-                containerClasses.xAxisClass = 'flex-right';
+                containerClasses.xAxisClass = 'aom-flex-right';
                 break;
             case Location.TopMiddle:
             case Location.BottomMiddle:
             case Location.Center:
-                containerClasses.xAxisClass = 'flex-horiz-center';
+                containerClasses.xAxisClass = 'aom-flex-horiz-center';
                 break;
         }
 
@@ -156,17 +158,17 @@ export class AnimationManager {
             case Location.TopLeft:
             case Location.TopMiddle:
             case Location.TopRight:
-                containerClasses.yAxisClass = 'flex-top';
+                containerClasses.yAxisClass = 'aom-flex-top';
                 break;
             case Location.BottomLeft:
             case Location.BottomMiddle:
             case Location.BottomRight:
-                containerClasses.yAxisClass = 'flex-bottom';
+                containerClasses.yAxisClass = 'aom-flex-bottom';
                 break;
             case Location.LeftMiddle:
             case Location.RightMiddle:
             case Location.Center:
-                containerClasses.yAxisClass = 'flex-vert-center';
+                containerClasses.yAxisClass = 'aom-flex-vert-center';
                 break;
         }
 
@@ -180,10 +182,10 @@ export class AnimationManager {
         switch(type)
         {
             case OverlayType.Modal:
-                className = 'position-modal';
+                className = 'aom-type-modal';
                 break;
             case OverlayType.Docked:
-                className = 'position-docked';
+                className = 'aom-type-docked';
                 break;
         }
         
@@ -196,16 +198,16 @@ export class AnimationManager {
         switch(startPoint)
         {
             case AnimationStartPoint.Top:
-                className = 'anim-slide-top';
+                className = 'aom-anim-slide-top';
                 break;
             case AnimationStartPoint.Bottom:
-                className = 'anim-slide-bottom';
+                className = 'aom-anim-slide-bottom';
                 break;
             case AnimationStartPoint.Left:
-                className = 'anim-slide-left';
+                className = 'aom-anim-slide-left';
                 break;
             case AnimationStartPoint.Right:
-                className = 'anim-slide-right';
+                className = 'aom-anim-slide-right';
                 break;
         }
         return className;
