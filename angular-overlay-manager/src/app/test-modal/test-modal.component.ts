@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AngularOverlayManagerService, OVERLAY_DATA } from 'angular-overlay-manager';
+import { AomOverlay, OVERLAY_DATA } from 'angular-overlay-manager';
 
 @Component({
   selector: 'app-test-modal',
@@ -8,7 +8,7 @@ import { AngularOverlayManagerService, OVERLAY_DATA } from 'angular-overlay-mana
 })
 export class TestModalComponent implements OnInit {
 
-  constructor(private overlayService: AngularOverlayManagerService, @Inject(OVERLAY_DATA) private data: any)  { 
+  constructor(private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any)  { 
     
   }
 
@@ -17,6 +17,10 @@ export class TestModalComponent implements OnInit {
 
   close() {
     console.log(this.data);
-    this.overlayService.close();
+    this.overlay.close(this.data);
+  }
+
+  cancel(){
+    this.overlay.cancel();
   }
 }

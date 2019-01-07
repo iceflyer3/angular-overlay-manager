@@ -39,11 +39,6 @@ export class OverlayContainerComponent implements OnInit {
     this.overlayComponentRef = viewContainerRef.createComponent(componentFactory);
   }
 
-  public setDataForOverlay(data: any)
-  {
-    this.overlayComponentRef.instance.data = data;
-  }
-
   public closeOverlayOnScrimClick()
   {
     if (!this.isProcessingScrimClick)

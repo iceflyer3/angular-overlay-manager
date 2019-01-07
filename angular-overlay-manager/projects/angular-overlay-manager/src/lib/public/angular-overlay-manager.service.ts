@@ -7,6 +7,7 @@ import { OverlayConfig } from './OverlayConfig';
 import { OverlayAnimationConfig } from './OverlayAnimationConfig';
 import { OverlayContainerComponent } from '../internal/overlay-container/overlay-container.component';
 import { OverlayManager } from '../internal/OverlayManager';
+import { AomOverlayRef } from './AomOverlayRef';
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +21,12 @@ export class AngularOverlayManagerService {
     if (!this.overlayManager.hasOpenOverlay())
     {
       this.overlayManager.openOverlay(component, overlayConfig, animationConfig);
+      return new AomOverlayRef(this.overlayManager);
     }
     else
     {
-      this.overlayManager.closeOverlay();
+      this.overlayManager.cancelOverlay();
+      this.open(component, overlayConfig, animationConfig);
     }
-  }
-
-  public close(data?: any) : Promise<any>
-  {
-    this.overlayManager.closeOverlay();
-    return of(data).toPromise();
   }
 }

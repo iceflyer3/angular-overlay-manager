@@ -6,6 +6,7 @@ import { OverlayContainerComponent } from './internal/overlay-container/overlay-
 import { OverlayManager } from './internal/OverlayManager';
 import { overlayDataProvider } from './internal/dependency-injection/overlay-data-provider';
 import { appConfigProvider } from './internal/dependency-injection/app-config-provider';
+import { AomOverlay } from './public/AomOverlay';
 
 @NgModule({
   imports: [

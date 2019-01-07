@@ -1,15 +1,12 @@
-import { ApplicationRef, ComponentFactoryResolver, Injector, Inject, Injectable, EventEmitter } from "@angular/core";
+import { ApplicationRef, ComponentFactoryResolver, Injector, Inject } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 import { ComponentRef } from "@angular/core/src/render3";
-import { Subject, Observable } from "rxjs";
 
-import { IAppConfig } from "./app-config/IAppConfig";
 import { OverlayContainerComponent } from "./overlay-container/overlay-container.component";
-import { APP_CONFIG } from "./dependency-injection/internal-di-tokens";
 
 export class ElementManager{
 
-    constructor(private appRef: ApplicationRef, private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector, @Inject(DOCUMENT) private document: any) { }
+    constructor(private appRef: ApplicationRef, private componentFactoryResolver: ComponentFactoryResolver, private injector: Injector, @Inject(DOCUMENT) private document: Document) { }
 
     public createAndAddToDom(component: any): ComponentRef<OverlayContainerComponent>
     {

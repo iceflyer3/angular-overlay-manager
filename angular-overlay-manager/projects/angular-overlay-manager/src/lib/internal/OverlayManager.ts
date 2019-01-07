@@ -1,4 +1,5 @@
 import { ComponentRef, Inject } from "@angular/core";
+import { Subject, Observable } from "rxjs";
 
 import { OverlayConfig } from "../public/OverlayConfig";
 import { OverlayContainerComponent } from "./overlay-container/overlay-container.component";
@@ -10,6 +11,7 @@ import { IAppConfig } from "./app-config/IAppConfig";
 
 export class OverlayManager{
     
+    private closeSubject: Subject<any>;
     private openComponentRef: ComponentRef<OverlayContainerComponent> = null;
     private openComponentAnimationConfig: OverlayAnimationConfig;
     private overlayData: any;
@@ -18,6 +20,7 @@ export class OverlayManager{
 
     public openOverlay(component: any, overlayConfig: OverlayConfig, animationConfig: OverlayAnimationConfig)
     {
+        this.closeSubject = new Subject<any>();
         this.openComponentAnimationConfig = animationConfig;
         this.overlayData = overlayConfig.data;
 
@@ -27,15 +30,43 @@ export class OverlayManager{
         if (overlayConfig.shouldCloseOnBackgroundClick)
         {
             this.openComponentRef.instance.onScrimClicked().subscribe(() => {
-                this.closeOverlay();
+                this.cancelOverlay();
             });
         }
     }
 
-    public closeOverlay()
+    public closeOverlay(data?: any)
+    {
+        this.close(data);
+    }
+
+    public cancelOverlay()
+    {
+        // By definition no data should be returned for a cancel operation
+        this.close();
+    }
+
+    public hasOpenOverlay(): boolean
+    {
+        return this.openComponentRef === undefined;
+    }
+
+    public getOverlayData(): any
+    {
+        return this.overlayData;
+    }
+
+    public onClose(): Observable<any>
+    {
+        return this.closeSubject.asObservable();
+    }
+
+    private close(data?: any)
     {
         if (this.openComponentRef !== null)
         { 
+            this.emitCloseEvent(data);
+
             this.animationManager.triggerClose(this.openComponentAnimationConfig).then(
                 () => {
                     /* 
@@ -54,13 +85,9 @@ export class OverlayManager{
         }
     }
 
-    public hasOpenOverlay(): boolean
+    private emitCloseEvent(data?: any)
     {
-        return this.openComponentRef === undefined;
-    }
-
-    public getOverlayData(): any
-    {
-        return this.overlayData;
+        this.closeSubject.next(data);
+        this.closeSubject.complete();
     }
 }

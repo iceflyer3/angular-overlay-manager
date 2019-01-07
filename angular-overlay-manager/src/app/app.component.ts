@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
-import { AngularOverlayManagerService } from 'angular-overlay-manager';
-import { OverlayConfig, OverlayAnimationConfig, Location, Animation, AnimationStartPoint, AnimationProperty, OverlayType } from 'angular-overlay-manager';
+import { 
+  AngularOverlayManagerService,
+  AomOverlayRef,
+  OverlayConfig, 
+  OverlayAnimationConfig, 
+  Location, 
+  Animation, 
+  AnimationStartPoint, 
+  AnimationProperty, 
+  OverlayType } from 'angular-overlay-manager';
 import { TestModalComponent } from './test-modal/test-modal.component';
 
 @Component({
@@ -34,7 +42,7 @@ export class AppComponent {
     
     this.overlayConfig = {
       data: null,
-      shouldCloseOnBackgroundClick: false
+      shouldCloseOnBackgroundClick: true
     }
 
     this.overlayAnimationConfig = {
@@ -55,7 +63,12 @@ export class AppComponent {
     }
     this.overlayConfig.data = this.getArrayTestData();
 
-    this.overlayManager.open(TestModalComponent, this.overlayConfig, this.overlayAnimationConfig);
+    let overlayRef: AomOverlayRef = this.overlayManager.open(TestModalComponent, this.overlayConfig, this.overlayAnimationConfig);
+    overlayRef.onClose().subscribe((data: any) => {
+      console.log('OverlayRef onClose received in App.Component');
+      console.log('OverlayRef onClose data was: ');
+      console.log(data);
+    }) 
   }
 
   private getArrayTestData()
