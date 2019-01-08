@@ -29,6 +29,9 @@ export class AppComponent {
   public animation: Animation;
   public animationStartPoint: AnimationStartPoint;
   public type: OverlayType
+  public shouldPassData: boolean;
+  public closeOnScrimClick: boolean;
+  public listenToOverlayClose: boolean;
 
   private overlayConfig: OverlayConfig
   private overlayAnimationConfig: OverlayAnimationConfig;
@@ -39,10 +42,12 @@ export class AppComponent {
     this.animation = Animation.Slide;
     this.animationStartPoint = AnimationStartPoint.Left;
     this.type = OverlayType.Modal;
+    this.shouldPassData = false;
+    this.closeOnScrimClick = true;
+    this.listenToOverlayClose = true;
     
     this.overlayConfig = {
-      data: null,
-      shouldCloseOnBackgroundClick: true
+      shouldCloseOnBackgroundClick: this.closeOnScrimClick
     }
 
     this.overlayAnimationConfig = {
@@ -61,28 +66,54 @@ export class AppComponent {
       animationStartPoint: Number(this.animationStartPoint),
       type: Number(this.type)
     }
-    this.overlayConfig.data = this.getArrayTestData();
+    this.overlayConfig = {
+      data: this.shouldPassData ? this.getTestObject() : null,
+      shouldCloseOnBackgroundClick: this.closeOnScrimClick
+    }
 
     let overlayRef: AomOverlayRef = this.overlayManager.open(TestModalComponent, this.overlayConfig, this.overlayAnimationConfig);
-    overlayRef.onClose().subscribe((data: any) => {
-      console.log('OverlayRef onClose received in App.Component');
-      console.log('OverlayRef onClose data was: ');
-      console.log(data);
-    }) 
+    
+    if (this.listenToOverlayClose)
+    {
+      overlayRef.onClose().subscribe((data: any) => {
+        data ? alert('Overlay has closed! Check the console to see data received on close.') : alert('Overlay has closed! No data was returned.');
+        console.log('OverlayRef onClose received data of: ');
+        console.log(data);
+      });  
+    }
   }
 
-  private getArrayTestData()
+
+  public getOverlayConfigExampleCodeString()
   {
-    return ['this', 'is', 'an', 'array', 'of', 'test', 'data'];
+    let codeString = '\n';
+    codeString += '\toverlayConfig = {';
+
+    if (this.shouldPassData)
+    {
+      codeString += `\n\t\tdata: ${JSON.stringify(this.getTestObject())}`;
+    }
+    
+    codeString += `\n\t\tshouldCloseOnBackgroundClick: ${this.closeOnScrimClick}`;
+    codeString += '\n\t}';
+    return codeString;
   }
 
-  private getObjectTestData()
+  public getAnimationConfigExampleCodeString()
   {
-    return {hello: 'world', foo: 'bar'};
+    // We're doing this is the component because it is actually more readable than doing it in the template
+    let codeString = '\n';
+    codeString += '\toverlayAnimationConfig = {';
+    codeString += `\n\t\tlocation: Location.${Location[this.location]}`;
+    codeString += `\n\t\tanimation: Animation.${Animation[this.animation]}`;
+    codeString += `\n\t\tanimationStartPoint: AnimationStartPoint.${AnimationStartPoint[this.animationStartPoint]}`;
+    codeString += `\n\t\ttype: OverlayType.${OverlayType[this.type]}`;
+    codeString += '\n\t}';
+    return codeString;
   }
 
-  private getPrimitiveData()
+  public getTestObject()
   {
-    return 42;
+    return {foo: 'bar', hello: 'world', test: 'object'};
   }
 }

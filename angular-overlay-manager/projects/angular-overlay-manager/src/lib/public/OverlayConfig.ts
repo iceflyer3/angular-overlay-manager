@@ -1,4 +1,4 @@
 export interface OverlayConfig{
-    data: any,
+    data?: any,
     shouldCloseOnBackgroundClick: boolean
 }

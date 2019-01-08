@@ -1,50 +1,101 @@
-<div class="d-flex flex-column justify-content-center align-content-center example-container">
-    <h4> Overlay Manager Testing </h4>
-    
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="locationSelect">Location</label>
+
+<div class="d-flex w-100 h-100 justify-content-center align-items-center">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-lg-4 offset-lg-2 col-12">
+        <h4> Overlay Configuration </h4>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="shouldPassDataCheckbox" [(ngModel)]="shouldPassData" id="shouldPassDataCheckbox">
+          <label class="form-check-label" for="shouldPassDataCheckbox">
+            Pass data to overlay?
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="scrimClickSelectCheckbox" [(ngModel)]="closeOnScrimClick" id="scrimClickSelectCheckbox">
+          <label class="form-check-label" for="scrimClickSelectCheckbox">
+            Close on bg click?
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="listenToOverlayCloseCheckbox" [(ngModel)]="listenToOverlayClose" id="listenToOverlayCloseCheckbox">
+          <label class="form-check-label" for="listenToOverlayCloseCheckbox">
+            Listen to close event?
+          </label>
+        </div>
       </div>
-      <select class="custom-select" id="locationSelect" [(ngModel)]="location">
-        <option [value]="OverlayLocations.TopLeft">Top Left</option>
-        <option [value]="OverlayLocations.TopMiddle">Top Middle</option>
-        <option [value]="OverlayLocations.TopRight">Top Right</option>
-        <option [value]="OverlayLocations.LeftMiddle">Left Middle</option>
-        <option [value]="OverlayLocations.RightMiddle">Right Middle</option>
-        <option [value]="OverlayLocations.BottomLeft">Bottom Left</option>
-        <option [value]="OverlayLocations.BottomMiddle">Bottom Middle</option>
-        <option [value]="OverlayLocations.BottomRight">Bottom Right</option>
-        <option [value]="OverlayLocations.Center">Center Screen</option>
-      </select>
-    </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="animationSelect">Animation</label>
+
+      <div class="col-lg-4 col-12">
+        <h4> Animation Configuration </h4>
+            
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="locationSelect">Location</label>
+          </div>
+          <select class="custom-select" id="locationSelect" [(ngModel)]="location">
+            <option [value]="OverlayLocations.TopLeft">Top Left</option>
+            <option [value]="OverlayLocations.TopMiddle">Top Middle</option>
+            <option [value]="OverlayLocations.TopRight">Top Right</option>
+            <option [value]="OverlayLocations.LeftMiddle">Left Middle</option>
+            <option [value]="OverlayLocations.RightMiddle">Right Middle</option>
+            <option [value]="OverlayLocations.BottomLeft">Bottom Left</option>
+            <option [value]="OverlayLocations.BottomMiddle">Bottom Middle</option>
+            <option [value]="OverlayLocations.BottomRight">Bottom Right</option>
+            <option [value]="OverlayLocations.Center">Center Screen</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="animationSelect">Animation</label>
+          </div>
+          <select class="custom-select" id="animationSelect" [(ngModel)]="animation">
+            <option [value]="Animations.Slide">Slide</option>
+            <option [value]="Animations.Fade">Fade</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="animationStartPointSelect">Animation Start Point</label>
+          </div>
+          <select class="custom-select" id="animationStartPointSelect" [(ngModel)]="animationStartPoint">
+            <option [value]="AnimStartPoints.Top">Top</option>
+            <option [value]="AnimStartPoints.Bottom">Bottom</option>
+            <option [value]="AnimStartPoints.Left">Left</option>
+            <option [value]="AnimStartPoints.Right">Right</option>
+          </select>
+        </div>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="overlayTypeSelect">Type</label>
+          </div>
+          <select class="custom-select" id="overlayTypeSelect" [(ngModel)]="type">
+            <option [value]="OverlayTypes.Modal">Modal</option>
+            <option [value]="OverlayTypes.Docked">Docked</option>
+          </select>
+        </div>
       </div>
-      <select class="custom-select" id="animationSelect" [(ngModel)]="animation">
-        <option [value]="Animations.Slide">Slide</option>
-        <option [value]="Animations.Fade">Fade</option>
-      </select>
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="animationStartPointSelect">Animation Start Point</label>
+
+    <div class="row mb-4">
+      <div class="col-lg-8 offset-lg-2 col-12">
+          <span class="btn btn-primary w-100" type="button" (click)="showOverlay()">Show Overlay</span>
       </div>
-      <select class="custom-select" id="animationStartPointSelect" [(ngModel)]="animationStartPoint">
-        <option [value]="AnimStartPoints.Top">Top</option>
-        <option [value]="AnimStartPoints.Bottom">Bottom</option>
-        <option [value]="AnimStartPoints.Left">Left</option>
-        <option [value]="AnimStartPoints.Right">Right</option>
-      </select>
     </div>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <label class="input-group-text" for="overlayTypeSelect">Type</label>
+
+    <div class="row">
+      <div class="col-lg-4 offset-lg-2 col-12">
+        <h4>Overlay config example</h4>
+        <pre class="code-block">
+          <code [innerHtml]="getOverlayConfigExampleCodeString()"></code>
+        </pre>
       </div>
-      <select class="custom-select" id="overlayTypeSelect" [(ngModel)]="type">
-        <option [value]="OverlayTypes.Modal">Modal</option>
-        <option [value]="OverlayTypes.Docked">Docked</option>
-      </select>
+      <div class="col-lg-4 col-12">
+        <h4>Animation config example</h4>
+        <pre class="code-block">
+            <code [innerHtml]="getAnimationConfigExampleCodeString()"></code>
+          </pre>
+      </div>
     </div>
-    <span class="btn btn-primary w-100" type="button" (click)="showOverlay()">Show Overlay</span>
+  </div>
+
 </div>

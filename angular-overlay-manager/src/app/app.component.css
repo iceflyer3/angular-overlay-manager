@@ -1,0 +1,8 @@
+.code-block{
+    background-color: #333333;
+    color: white;
+}
+
+.code-block > span{
+    color: #7EFB8B !important;
+}
