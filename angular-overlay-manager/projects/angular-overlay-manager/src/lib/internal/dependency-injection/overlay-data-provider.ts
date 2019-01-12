@@ -20,7 +20,6 @@ export class OverlayDataAdapter{
 }
 
 let overlayDataFactory = (overlayDataManager: OverlayDataAdapter) => {
-    console.log('overlayDataFactory is called!');
     return overlayDataManager.getOverlayData();
 }
 

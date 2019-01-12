@@ -76,39 +76,38 @@ export class AppComponent {
     if (this.listenToOverlayClose)
     {
       overlayRef.onClose().subscribe((data: any) => {
-        data ? alert('Overlay has closed! Check the console to see data received on close.') : alert('Overlay has closed! No data was returned.');
-        console.log('OverlayRef onClose received data of: ');
-        console.log(data);
+        data ? alert(`Overlay has closed! Returned data: ${JSON.stringify(data)} `) : alert('Overlay has closed! No data was returned.');
       });  
     }
   }
 
 
+  // Generating the example code strings is actuall more readable this way than if we just did them
+  // straight in the template. This isn't what I would call pretty but it is preferable to the alternative.
   public getOverlayConfigExampleCodeString()
   {
     let codeString = '\n';
-    codeString += '\toverlayConfig = {';
+    codeString += 'overlayConfig = {';
 
     if (this.shouldPassData)
     {
-      codeString += `\n\t\tdata: ${JSON.stringify(this.getTestObject())}`;
+      codeString += `\n\tdata: ${JSON.stringify(this.getTestObject())}`;
     }
     
-    codeString += `\n\t\tshouldCloseOnBackgroundClick: ${this.closeOnScrimClick}`;
-    codeString += '\n\t}';
+    codeString += `\n\tshouldCloseOnBackgroundClick: ${this.closeOnScrimClick}`;
+    codeString += '\n}';
     return codeString;
   }
 
   public getAnimationConfigExampleCodeString()
   {
-    // We're doing this is the component because it is actually more readable than doing it in the template
     let codeString = '\n';
-    codeString += '\toverlayAnimationConfig = {';
-    codeString += `\n\t\tlocation: Location.${Location[this.location]}`;
-    codeString += `\n\t\tanimation: Animation.${Animation[this.animation]}`;
-    codeString += `\n\t\tanimationStartPoint: AnimationStartPoint.${AnimationStartPoint[this.animationStartPoint]}`;
-    codeString += `\n\t\ttype: OverlayType.${OverlayType[this.type]}`;
-    codeString += '\n\t}';
+    codeString += 'overlayAnimationConfig = {';
+    codeString += `\n\tlocation: Location.${Location[this.location]}`;
+    codeString += `\n\tanimation: Animation.${Animation[this.animation]}`;
+    codeString += `\n\tanimationStartPoint: AnimationStartPoint.${AnimationStartPoint[this.animationStartPoint]}`;
+    codeString += `\n\ttype: OverlayType.${OverlayType[this.type]}`;
+    codeString += '\n}';
     return codeString;
   }
 

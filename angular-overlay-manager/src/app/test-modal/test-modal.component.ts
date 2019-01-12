@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { AomOverlay, OVERLAY_DATA } from 'angular-overlay-manager';
+import { AomOverlay, OverlayConfig, OverlayAnimationConfig, OVERLAY_DATA, AngularOverlayManagerService, Location, Animation, AnimationStartPoint, OverlayType } from 'angular-overlay-manager';
 
 @Component({
   selector: 'app-test-modal',
@@ -8,19 +8,30 @@ import { AomOverlay, OVERLAY_DATA } from 'angular-overlay-manager';
 })
 export class TestModalComponent implements OnInit {
 
-  constructor(private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any)  { 
-    
-  }
+  constructor(private overlayService: AngularOverlayManagerService, private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any)  { }
 
   ngOnInit() {
   }
 
   close() {
-    console.log(this.data);
     this.overlay.close(this.data);
   }
 
   cancel(){
     this.overlay.cancel();
+  }
+
+  openNestedOverlay(){
+    let overlayConfig: OverlayConfig = {
+      shouldCloseOnBackgroundClick: false
+    }
+
+    let overlayAnimationConfig: OverlayAnimationConfig = {
+      location: Location.TopLeft,
+      animation: Animation.Slide,
+      animationStartPoint: AnimationStartPoint.Left,
+      type: OverlayType.Modal
+    };
+    this.overlayService.open(TestModalComponent, overlayConfig, overlayAnimationConfig);
   }
 }

@@ -1,8 +1,9 @@
 .code-block{
     background-color: #333333;
     color: white;
+    padding: 1rem 2rem 1rem 4rem;
 }
 
-.code-block > span{
-    color: #7EFB8B !important;
+.single-line-snippet{
+    white-space: pre-line;
 }
