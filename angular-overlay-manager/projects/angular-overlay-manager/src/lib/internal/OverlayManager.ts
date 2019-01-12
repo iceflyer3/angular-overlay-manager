@@ -8,31 +8,36 @@ import { ElementManager } from "./ElementManager";
 import { AnimationManager } from "./AnimationManager";
 import { APP_CONFIG } from "./dependency-injection/internal-di-tokens";
 import { IAppConfig } from "./app-config/IAppConfig";
+import { OverlayDataAdapter } from "./dependency-injection/overlay-data-provider";
 
 export class OverlayManager{
     
     private closeSubject: Subject<any>;
     private openComponentRef: ComponentRef<OverlayContainerComponent> = null;
     private openComponentAnimationConfig: OverlayAnimationConfig;
-    private overlayData: any;
 
-    constructor(private elementManager: ElementManager, private animationManager: AnimationManager, @Inject(APP_CONFIG) private appConfig: IAppConfig) {}
+    constructor(private elementManager: ElementManager, private animationManager: AnimationManager, private overlayDataAdapter: OverlayDataAdapter, @Inject(APP_CONFIG) private appConfig: IAppConfig) {}
 
     public openOverlay(component: any, overlayConfig: OverlayConfig, animationConfig: OverlayAnimationConfig)
     {
         this.closeSubject = new Subject<any>();
         this.openComponentAnimationConfig = animationConfig;
-        this.overlayData = overlayConfig.data;
+        
+        // Make any data available for injection when the instance is created below
+        // Even if the data is null this will reset the data in the adapter
+        this.overlayDataAdapter.setOverlayData(overlayConfig.data);
 
+        // Create the component instance and add it to the dom then animate it onto the screen
         this.openComponentRef = this.elementManager.createAndAddToDom(component);
-        this.animationManager.applyConfiguration(animationConfig);
-
+        
         if (overlayConfig.shouldCloseOnBackgroundClick)
         {
             this.openComponentRef.instance.onScrimClicked().subscribe(() => {
                 this.cancelOverlay();
             });
         }
+
+        this.animationManager.applyConfiguration(animationConfig);
     }
 
     public closeOverlay(data?: any)
@@ -48,12 +53,7 @@ export class OverlayManager{
 
     public hasOpenOverlay(): boolean
     {
-        return this.openComponentRef === undefined;
-    }
-
-    public getOverlayData(): any
-    {
-        return this.overlayData;
+        return this.openComponentRef !== null;
     }
 
     public onClose(): Observable<any>
@@ -65,8 +65,6 @@ export class OverlayManager{
     {
         if (this.openComponentRef !== null)
         { 
-            this.emitCloseEvent(data);
-
             this.animationManager.triggerClose(this.openComponentAnimationConfig).then(
                 () => {
                     /* 
@@ -79,6 +77,7 @@ export class OverlayManager{
                     setTimeout(() => {
                         this.elementManager.destroyAndRemoveFromDom(this.openComponentRef);
                         this.openComponentRef = null;
+                        this.emitCloseEvent(data);
                     }, this.appConfig.AnimationTimeInMs)
                 }
             );

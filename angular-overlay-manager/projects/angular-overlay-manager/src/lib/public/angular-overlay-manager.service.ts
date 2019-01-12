@@ -25,8 +25,7 @@ export class AngularOverlayManagerService {
     }
     else
     {
-      this.overlayManager.cancelOverlay();
-      this.open(component, overlayConfig, animationConfig);
+      alert('You cannot open a new overlay while an overlay is already open!');
     }
   }
 }

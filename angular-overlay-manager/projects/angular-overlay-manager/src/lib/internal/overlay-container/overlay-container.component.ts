@@ -3,12 +3,14 @@ import { Subject, Observable } from 'rxjs';
 import { APP_CONFIG } from '../dependency-injection/internal-di-tokens';
 import { IAppConfig } from '../app-config/IAppConfig';
 import { OverlayHostDirective } from '../overlay-host.directive';
+import { overlayDataProvider } from '../dependency-injection/overlay-data-provider';
 
 @Component({
   selector: 'aom-overlay-container',
   templateUrl: './overlay-container.component.html',
   styleUrls: ['./overlay-container.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  providers: [overlayDataProvider]
 })
 export class OverlayContainerComponent implements OnInit {
 
@@ -17,6 +19,7 @@ export class OverlayContainerComponent implements OnInit {
   private scrimClickSubject: Subject<any>;
   private isProcessingScrimClick: boolean;
   private overlayComponentRef: ComponentRef<any>
+  private overlayData: any;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver, @Inject(APP_CONFIG) private appConfig: IAppConfig) { }
 
@@ -24,6 +27,7 @@ export class OverlayContainerComponent implements OnInit {
 
   ngOnDestroy() {
     this.scrimClickSubject.complete();
+    this.overlayComponentRef.destroy();
   }
 
   public createOverlayComponent(overlayComponent: any)
@@ -37,6 +41,16 @@ export class OverlayContainerComponent implements OnInit {
     viewContainerRef.clear();
 
     this.overlayComponentRef = viewContainerRef.createComponent(componentFactory);
+  }
+
+  public setOverlayData(data: any)
+  {
+    this.overlayData = data;
+  }
+
+  public getOverlayData(): any
+  {
+    return this.overlayData;
   }
 
   public closeOverlayOnScrimClick()
