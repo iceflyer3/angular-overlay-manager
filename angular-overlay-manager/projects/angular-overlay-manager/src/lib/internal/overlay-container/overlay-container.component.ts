@@ -6,7 +6,7 @@
     for the full license details.
 */
 
-import { Component, OnInit, OnDestroy, Inject, ComponentFactoryResolver, ViewChild, ComponentRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject, ComponentFactoryResolver, ViewChild, ComponentRef, ViewEncapsulation } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { APP_CONFIG } from '../dependency-injection/internal-di-tokens';
 import { IAppConfig } from '../app-config/IAppConfig';

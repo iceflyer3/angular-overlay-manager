@@ -6,14 +6,10 @@
     for the full license details.
 */
 
-import { Injectable, INJECTOR, Inject } from '@angular/core';
-import { ComponentRef } from "@angular/core/src/render3";
-
-import { of } from 'rxjs';
+import { Injectable} from '@angular/core';
 
 import { OverlayConfig } from './OverlayConfig';
 import { OverlayAnimationConfig } from './OverlayAnimationConfig';
-import { OverlayContainerComponent } from '../internal/overlay-container/overlay-container.component';
 import { OverlayManager } from '../internal/OverlayManager';
 import { AomOverlayRef } from './AomOverlayRef';
 
