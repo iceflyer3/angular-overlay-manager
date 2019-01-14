@@ -6,14 +6,14 @@
     for the full license details.
 */
 
-import { Location } from "./enums/Location";
-import { Animation } from "./enums/Animation";
-import { AnimationStartPoint } from "./enums/AnimationStartPoint";
+import { OverlayLocation } from "./enums/OverlayLocation";
+import { OverlayAnimation } from "./enums/OverlayAnimation";
+import { OverlayAnimationStartPoint } from "./enums/OverlayAnimationStartPoint";
 import { OverlayType } from "./enums/OverlayType";
 
 export interface OverlayAnimationConfig{
-    location: Location,
-    animation: Animation,
-    animationStartPoint: AnimationStartPoint
+    location: OverlayLocation,
+    animation: OverlayAnimation,
+    animationStartPoint: OverlayAnimationStartPoint
     type: OverlayType
 }

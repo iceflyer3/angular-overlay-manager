@@ -12,10 +12,10 @@ import {
   AomOverlayRef,
   OverlayConfig, 
   OverlayAnimationConfig, 
-  Location, 
-  Animation, 
-  AnimationStartPoint, 
-  AnimationProperty, 
+  OverlayLocation, 
+  OverlayAnimation, 
+  OverlayAnimationStartPoint, 
+  OverlayAnimationProperty, 
   OverlayType } from 'angular-overlay-manager';
 import { TestModalComponent } from './test-modal/test-modal.component';
 
@@ -27,15 +27,15 @@ import { TestModalComponent } from './test-modal/test-modal.component';
 export class AppComponent {
   title = 'app';
 
-  public OverlayLocations = Location;
-  public Animations = Animation;
-  public AnimStartPoints = AnimationStartPoint;
-  public AnimProperties = AnimationProperty;
+  public OverlayLocations = OverlayLocation;
+  public Animations = OverlayAnimation;
+  public AnimStartPoints = OverlayAnimationStartPoint;
+  public AnimProperties = OverlayAnimationProperty;
   public OverlayTypes = OverlayType;
 
-  public location: Location;
-  public animation: Animation;
-  public animationStartPoint: AnimationStartPoint;
+  public location: OverlayLocation;
+  public animation: OverlayAnimation;
+  public animationStartPoint: OverlayAnimationStartPoint;
   public type: OverlayType
   public shouldPassData: boolean;
   public closeOnScrimClick: boolean;
@@ -46,9 +46,9 @@ export class AppComponent {
   
 
   constructor(private overlayManager: AngularOverlayManagerService) { 
-    this.location = Location.TopLeft;
-    this.animation = Animation.Slide;
-    this.animationStartPoint = AnimationStartPoint.Left;
+    this.location = OverlayLocation.TopLeft;
+    this.animation = OverlayAnimation.Slide;
+    this.animationStartPoint = OverlayAnimationStartPoint.Left;
     this.type = OverlayType.Modal;
     this.shouldPassData = false;
     this.closeOnScrimClick = true;
@@ -111,9 +111,9 @@ export class AppComponent {
   {
     let codeString = '\n';
     codeString += 'overlayAnimationConfig = {';
-    codeString += `\n\tlocation: Location.${Location[this.location]}`;
-    codeString += `\n\tanimation: Animation.${Animation[this.animation]}`;
-    codeString += `\n\tanimationStartPoint: AnimationStartPoint.${AnimationStartPoint[this.animationStartPoint]}`;
+    codeString += `\n\tlocation: Location.${OverlayLocation[this.location]}`;
+    codeString += `\n\tanimation: Animation.${OverlayAnimation[this.animation]}`;
+    codeString += `\n\tanimationStartPoint: AnimationStartPoint.${OverlayAnimationStartPoint[this.animationStartPoint]}`;
     codeString += `\n\ttype: OverlayType.${OverlayType[this.type]}`;
     codeString += '\n}';
     return codeString;

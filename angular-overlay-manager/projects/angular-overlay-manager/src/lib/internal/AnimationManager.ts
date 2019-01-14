@@ -11,9 +11,9 @@ import { DOCUMENT } from "@angular/common";
 import { of } from "rxjs";
 
 import { OverlayAnimationConfig } from "../public/OverlayAnimationConfig";
-import { AnimationStartPoint } from "../public/enums/AnimationStartPoint";
-import { Location } from "../public/enums/Location";
-import { Animation } from "../public/enums/Animation";
+import { OverlayAnimationStartPoint } from "../public/enums/OverlayAnimationStartPoint";
+import { OverlayLocation } from "../public/enums/OverlayLocation";
+import { OverlayAnimation } from "../public/enums/OverlayAnimation";
 import { OverlayType } from "../public/enums/OverlayType";
 
 
@@ -35,10 +35,10 @@ export class AnimationManager {
 
         switch(config.animation)
         {
-            case Animation.Slide:
+            case OverlayAnimation.Slide:
                 this.initializeSlideAnimation(flexboxContainer, overlayElement, config);
                 break;
-            case Animation.Fade:
+            case OverlayAnimation.Fade:
                 this.initializeFadeAnimation(flexboxContainer, overlayElement, config);
                 break;
         }
@@ -56,10 +56,10 @@ export class AnimationManager {
 
         switch(config.animation)
         {
-            case Animation.Fade:
+            case OverlayAnimation.Fade:
                 this.closeFadeAnimation(overlayElement);
                 break;
-            case Animation.Slide:
+            case OverlayAnimation.Slide:
                 this.closeSlideAnimation(overlayElement);
                 break;
         }
@@ -81,10 +81,10 @@ export class AnimationManager {
 
         switch(config.animation)
         {
-            case Animation.Fade:
+            case OverlayAnimation.Fade:
                 this.renderer.addClass(element, 'aom-anim-fade-emerge');    
                 break;
-            case Animation.Slide:
+            case OverlayAnimation.Slide:
                 this.renderer.addClass(element, 'aom-anim-slide-emerge');
         }
     }
@@ -136,26 +136,26 @@ export class AnimationManager {
         this.renderer.removeClass(scrim, 'aom-scrim-open');
     }
 
-    private getContainerClassesForLocation(location: Location): { xAxisClass: string, yAxisClass: string }
+    private getContainerClassesForLocation(location: OverlayLocation): { xAxisClass: string, yAxisClass: string }
     {
         let containerClasses = {xAxisClass: '', yAxisClass: ''};
 
         // Determine the horizontal flexbox class
         switch(location)
         {
-            case Location.TopLeft:
-            case Location.BottomLeft:
-            case Location.LeftMiddle:
+            case OverlayLocation.TopLeft:
+            case OverlayLocation.BottomLeft:
+            case OverlayLocation.LeftMiddle:
                 containerClasses.xAxisClass = 'aom-flex-left';
                 break;
-            case Location.TopRight:
-            case Location.BottomRight:
-            case Location.RightMiddle:
+            case OverlayLocation.TopRight:
+            case OverlayLocation.BottomRight:
+            case OverlayLocation.RightMiddle:
                 containerClasses.xAxisClass = 'aom-flex-right';
                 break;
-            case Location.TopMiddle:
-            case Location.BottomMiddle:
-            case Location.Center:
+            case OverlayLocation.TopMiddle:
+            case OverlayLocation.BottomMiddle:
+            case OverlayLocation.Center:
                 containerClasses.xAxisClass = 'aom-flex-horiz-center';
                 break;
         }
@@ -163,19 +163,19 @@ export class AnimationManager {
         // Determine the vertical flexbox class
         switch(location)
         {
-            case Location.TopLeft:
-            case Location.TopMiddle:
-            case Location.TopRight:
+            case OverlayLocation.TopLeft:
+            case OverlayLocation.TopMiddle:
+            case OverlayLocation.TopRight:
                 containerClasses.yAxisClass = 'aom-flex-top';
                 break;
-            case Location.BottomLeft:
-            case Location.BottomMiddle:
-            case Location.BottomRight:
+            case OverlayLocation.BottomLeft:
+            case OverlayLocation.BottomMiddle:
+            case OverlayLocation.BottomRight:
                 containerClasses.yAxisClass = 'aom-flex-bottom';
                 break;
-            case Location.LeftMiddle:
-            case Location.RightMiddle:
-            case Location.Center:
+            case OverlayLocation.LeftMiddle:
+            case OverlayLocation.RightMiddle:
+            case OverlayLocation.Center:
                 containerClasses.yAxisClass = 'aom-flex-vert-center';
                 break;
         }
@@ -200,21 +200,21 @@ export class AnimationManager {
         return className;
     }
 
-    private getOverlayClassForSlideAnimation(startPoint: AnimationStartPoint): string
+    private getOverlayClassForSlideAnimation(startPoint: OverlayAnimationStartPoint): string
     {
         let className = ''
         switch(startPoint)
         {
-            case AnimationStartPoint.Top:
+            case OverlayAnimationStartPoint.Top:
                 className = 'aom-anim-slide-top';
                 break;
-            case AnimationStartPoint.Bottom:
+            case OverlayAnimationStartPoint.Bottom:
                 className = 'aom-anim-slide-bottom';
                 break;
-            case AnimationStartPoint.Left:
+            case OverlayAnimationStartPoint.Left:
                 className = 'aom-anim-slide-left';
                 break;
-            case AnimationStartPoint.Right:
+            case OverlayAnimationStartPoint.Right:
                 className = 'aom-anim-slide-right';
                 break;
         }

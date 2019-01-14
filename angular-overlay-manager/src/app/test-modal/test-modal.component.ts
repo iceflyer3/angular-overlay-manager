@@ -7,7 +7,7 @@
 */
 
 import { Component, OnInit, Inject } from '@angular/core';
-import { AomOverlay, OverlayConfig, OverlayAnimationConfig, OVERLAY_DATA, AngularOverlayManagerService, Location, Animation, AnimationStartPoint, OverlayType } from 'angular-overlay-manager';
+import { AomOverlay, OverlayConfig, OverlayAnimationConfig, OVERLAY_DATA, AngularOverlayManagerService, OverlayLocation, OverlayAnimation, OverlayAnimationStartPoint, OverlayType } from 'angular-overlay-manager';
 
 @Component({
   selector: 'app-test-modal',
@@ -35,9 +35,9 @@ export class TestModalComponent implements OnInit {
     }
 
     let overlayAnimationConfig: OverlayAnimationConfig = {
-      location: Location.TopLeft,
-      animation: Animation.Slide,
-      animationStartPoint: AnimationStartPoint.Left,
+      location: OverlayLocation.TopLeft,
+      animation: OverlayAnimation.Slide,
+      animationStartPoint: OverlayAnimationStartPoint.Left,
       type: OverlayType.Modal
     };
     this.overlayService.open(TestModalComponent, overlayConfig, overlayAnimationConfig);

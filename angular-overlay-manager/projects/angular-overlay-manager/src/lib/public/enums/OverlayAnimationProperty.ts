@@ -6,14 +6,10 @@
     for the full license details.
 */
 
-export enum Location{
-    TopLeft,
-    TopMiddle,
-    TopRight,
-    BottomLeft,
-    BottomMiddle,
-    BottomRight,
-    LeftMiddle,
-    RightMiddle,
-    Center
+// TO-DO: Just stubbing this out for now. Would like to include support for this later. 
+export enum OverlayAnimationProperty{
+    None,
+    Width,
+    Height,
+    WidthAndHeight
 }

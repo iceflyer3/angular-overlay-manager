@@ -6,7 +6,10 @@
     for the full license details.
 */
 
-export enum Animation{
-    Slide,
-    Fade
+export enum OverlayAnimationStartPoint{
+    None,
+    Top,
+    Bottom,
+    Left,
+    Right
 }
