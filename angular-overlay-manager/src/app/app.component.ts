@@ -17,7 +17,7 @@ import {
   OverlayAnimationStartPoint, 
   OverlayAnimationProperty, 
   OverlayType } from 'angular-overlay-manager';
-import { TestModalComponent } from './test-modal/test-modal.component';
+import { TestOverlayComponent } from './test-overlay/test-overlay.component';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +25,6 @@ import { TestModalComponent } from './test-modal/test-modal.component';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-
   public OverlayLocations = OverlayLocation;
   public Animations = OverlayAnimation;
   public AnimStartPoints = OverlayAnimationStartPoint;
@@ -79,7 +77,7 @@ export class AppComponent {
       shouldCloseOnBackgroundClick: this.closeOnScrimClick
     }
 
-    let overlayRef: AomOverlayRef = this.overlayManager.open(TestModalComponent, this.overlayConfig, this.overlayAnimationConfig);
+    let overlayRef: AomOverlayRef = this.overlayManager.open(TestOverlayComponent, this.overlayConfig, this.overlayAnimationConfig);
     
     if (this.listenToOverlayClose)
     {

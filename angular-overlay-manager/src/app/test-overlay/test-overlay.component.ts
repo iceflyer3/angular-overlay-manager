@@ -10,11 +10,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AomOverlay, OverlayConfig, OverlayAnimationConfig, OVERLAY_DATA, AngularOverlayManagerService, OverlayLocation, OverlayAnimation, OverlayAnimationStartPoint, OverlayType } from 'angular-overlay-manager';
 
 @Component({
-  selector: 'app-test-modal',
-  templateUrl: './test-modal.component.html',
-  styleUrls: ['./test-modal.component.scss']
+  selector: 'app-test-overlay',
+  templateUrl: './test-overlay.component.html',
+  styleUrls: ['./test-overlay.component.scss']
 })
-export class TestModalComponent implements OnInit {
+export class TestOverlayComponent implements OnInit {
 
   constructor(private overlayService: AngularOverlayManagerService, private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any)  { }
 
@@ -40,6 +40,6 @@ export class TestModalComponent implements OnInit {
       animationStartPoint: OverlayAnimationStartPoint.Left,
       type: OverlayType.Modal
     };
-    this.overlayService.open(TestModalComponent, overlayConfig, overlayAnimationConfig);
+    this.overlayService.open(TestOverlayComponent, overlayConfig, overlayAnimationConfig);
   }
 }

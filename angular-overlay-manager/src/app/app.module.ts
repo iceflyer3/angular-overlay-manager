@@ -13,12 +13,12 @@ import { FormsModule } from '@angular/forms';
 import { AngularOverlayManagerModule } from 'angular-overlay-manager';
 
 import { AppComponent } from './app.component';
-import { TestModalComponent } from './test-modal/test-modal.component';
+import { TestOverlayComponent } from './test-overlay/test-overlay.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestModalComponent
+    TestOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +27,6 @@ import { TestModalComponent } from './test-modal/test-modal.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [TestModalComponent]
+  entryComponents: [TestOverlayComponent]
 })
 export class AppModule { }
