@@ -43,11 +43,11 @@
             <option [value]="OverlayLocations.TopMiddle">Top Middle</option>
             <option [value]="OverlayLocations.TopRight">Top Right</option>
             <option [value]="OverlayLocations.LeftMiddle">Left Middle</option>
+            <option [value]="OverlayLocations.Center">Center Screen</option>
             <option [value]="OverlayLocations.RightMiddle">Right Middle</option>
             <option [value]="OverlayLocations.BottomLeft">Bottom Left</option>
             <option [value]="OverlayLocations.BottomMiddle">Bottom Middle</option>
             <option [value]="OverlayLocations.BottomRight">Bottom Right</option>
-            <option [value]="OverlayLocations.Center">Center Screen</option>
           </select>
         </div>
         <div class="input-group mb-3">
@@ -87,8 +87,6 @@
           <span class="btn btn-primary w-100" type="button" (click)="showOverlay()">Show Overlay</span>
       </div>
     </div>
-
-    <div style="border: 1px solid #E9ECEF">
     
     <div class="row">
       <div class="col-lg-4 offset-lg-2 col-12">
@@ -111,7 +109,6 @@
             let overlayRef: AomOverlayRef = this.overlayManager.open(TestModalComponent, this.overlayConfig, this.overlayAnimationConfig);
         </pre>
       </div>
-    </div>
     </div>
   </div>
 

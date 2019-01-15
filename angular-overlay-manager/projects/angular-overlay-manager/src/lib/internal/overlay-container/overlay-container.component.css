@@ -6,8 +6,18 @@
     for the full license details.
 */
 
+/* Forcibly override any styles that would interfere with library functionality */
 #aom-overlay{
     display: block !important;
+    position: static !important;
+
+    width: auto !important;
+    height: auto !important;
+}
+
+#aom-overlay div 
+{
+    margin: initial;
 }
 
 .aom-flex-container{    
