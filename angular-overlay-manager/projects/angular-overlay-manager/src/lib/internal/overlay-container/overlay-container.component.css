@@ -6,6 +6,10 @@
     for the full license details.
 */
 
+#aom-overlay{
+    display: block !important;
+}
+
 .aom-flex-container{    
     display: flex;
     flex-direction: row;
