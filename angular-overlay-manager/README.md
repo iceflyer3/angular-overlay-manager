@@ -9,7 +9,7 @@ Angular Overlay Manager was written using Angular version 6.1.10. It has not bee
 The library uses CSS flexbox for positioning elements on the screen and CSS transitions for animating elements on and off the screen. Thus it will not work anywhere that these technologies are unavailable.
 
 ## USING THE LIBRARY
-To see a live demo vist the demo application located at
+To see a live demo vist the demo application located at https://iceflyer3.github.io/angular-overlay-manager/
 
 ### Installation instructions
 
