@@ -25,7 +25,7 @@ export class OverlayDataAdapter{
     }
 }
 
-let overlayDataFactory = (overlayDataManager: OverlayDataAdapter) => {
+export let overlayDataFactory = (overlayDataManager: OverlayDataAdapter) => {
     return overlayDataManager.getOverlayData();
 }
 
