@@ -265,7 +265,7 @@ If you attempt to open an overlay from an already open overlay you will receive 
 
 ## VERSIONING
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/iceflyer3/angular-overlay-manager/tags). 
 
 ## LICENSE
 
