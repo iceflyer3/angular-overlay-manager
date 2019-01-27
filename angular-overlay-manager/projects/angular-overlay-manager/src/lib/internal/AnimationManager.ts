@@ -71,7 +71,7 @@ export class AnimationManager {
     }
 
     private triggerAnimation(element: any, scrim: any, config: OverlayAnimationConfig)
-    {
+    {        
         // Trigger the scrim animation
         this.renderer.addClass(scrim, 'aom-scrim-open');
 
@@ -252,6 +252,20 @@ export class AnimationManager {
             http://kellegous.com/j/2013/01/26/layout-performance/
             https://gist.github.com/paulirish/5d52fb081b3570c81e3a
         */
-        element.offsetWidth;
+
+        /*
+            Also of note here is that this value is returned but the return value is never actually used anywhere since we're only accessing the value to hack the DOM and 
+            force a reflow as described above.
+
+            Without the return here, when doing a production build that runs UglifyJs to perform dead code removal, this approach would not work. I heavily suspsect this is
+            because we were just accessing the value without using it in any way so it would get removed as dead code and hence break our animations. The return here appears 
+            to have fixed that issue as it should no longer be removed as dead code since it could conceivably be used by the caller of this function even though that is never
+            actually the case in practice.
+
+            tl:dr basically we had to hack our hack so it wouldn't get removed as dead code. Yeah, its not real pretty but given its the only control we have over browser DOM
+                  reflows its all we've got to work with so is what it is. 
+        */
+
+        return element.offsetWidth;
     }
 }
