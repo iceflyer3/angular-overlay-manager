@@ -4,7 +4,7 @@ Angular Overlay Manager is an Angular Library project that is intended to be a s
 
 ## PREREQUISITES
 
-Angular Overlay Manager was written using Angular version 6.1.10. It has not been tested on other versions.
+Angular Overlay Manager uses Angular version 7.2.6. While it has not been explicitly tested on other versions it should work on 7.x versions of Angular. 
 
 The library uses CSS flexbox for positioning elements on the screen and CSS transitions for animating elements on and off the screen. Thus it will not work anywhere that these technologies are unavailable.
 
