@@ -155,6 +155,33 @@ export class YourOverlayComponent implements OnInit {
 
 ```
 
+For some overlays it is useful to be able to forcibly cancel the overlay. For example, if the overlay is one that the user will not interact with or if you need to display another overlay before the user has closed the already open one. This is a common situation with Material Design style snackbars that are often used for informational purposes and may not always support user interaction.
+
+ There is a `forceCancel()` function on the `AomOverlayRef` instance that covers exactly this scenario.
+
+```typescript
+
+import { AngularOverlayManagerService, AomOverlayRef, ... } from 'angular-overlay-manager';
+
+@Component({
+  ...
+})
+export class YourComponent {
+    ...
+    constructor(private overlayManager: AngularOverlayManagerService) { 
+        ...
+    }
+
+    public openOverlay(){
+        ...
+        let aomOverlayRef: AomOverlayRef = this.overlayManager.open(YourOverlayComponent, this.overlayConfig, this.overlayAnimationConfig);
+
+        aomOverlayRef.forceCancel();
+    }
+}
+
+```
+
 ### Passing data to the overlay
 If you have some data that you would like pass to the overlay then you'll need to set it on the data property of the `OverlayConfig` before you open the overlay. 
 
@@ -250,18 +277,18 @@ export class YourComponent {
 
         overlayRef.onClose().subscribe((data) => {
             ...
-      });  
+        });  
     }
 }
 
 ```
 
-The observable returned by `onClose()` will pass back any data that was passed to the `close(data)` function of the `AomOverlay`. Calls to the `cancel()` function of the `AomOverlay` or clicks on the background to close the overlay will never return any data. 
+The observable returned by `onClose()` will pass back any data that was passed to the `close(data)` function of the `AomOverlay`. Calls to the `cancel()` function of the `AomOverlay`, the `forceCancel()` function of the `AomOverlayRef`, or clicks on the background to close the overlay will never return any data. 
 
 ### Opening nested overlays
 This library does **not** support opening nested overlays. There are **not** currently any plans to add support for this feature. 
 
-If you attempt to open an overlay from an already open overlay you will receive an error via an alert dialog stating that you must first close the already open dialog.
+If you attempt to open an overlay while there is already an open overlay you will receive an error via an alert dialog stating that you must first close the already open overlay.
 
 ## VERSIONING
 
