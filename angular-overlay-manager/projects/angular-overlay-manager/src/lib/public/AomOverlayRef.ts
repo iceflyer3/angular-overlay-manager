@@ -17,4 +17,9 @@ export class AomOverlayRef{
         // Just bubble the event from the overlay manager up one more level
         return this.overlayManager.onClose();
     }
+
+    public forceCancel(): any
+    {
+        this.overlayManager.cancelOverlay();
+    }
 }

@@ -37,6 +37,7 @@ export class AppComponent {
   public shouldPassData: boolean;
   public closeOnScrimClick: boolean;
   public listenToOverlayClose: boolean;
+  public shouldForceClose: boolean;
 
   private overlayConfig: OverlayConfig
   private overlayAnimationConfig: OverlayAnimationConfig;
@@ -83,6 +84,11 @@ export class AppComponent {
       overlayRef.onClose().subscribe((data: any) => {
         data ? alert(`Overlay has closed! Returned data: ${JSON.stringify(data)} `) : alert('Overlay has closed! No data was returned.');
       });  
+    }
+
+    if (this.shouldForceClose)
+    {
+      window.setTimeout(() => { overlayRef.forceCancel() }, 3000);
     }
   }
 

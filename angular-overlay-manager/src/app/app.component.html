@@ -29,6 +29,12 @@
             Listen to close event?
           </label>
         </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="forceCloseCheckbox" [(ngModel)]="shouldForceClose" id="forceCloseCheckbox">
+          <label class="form-check-label" for="forceCloseCheckbox">
+            Force cancel after 3 seconds?
+          </label>
+        </div>
       </div>
 
       <div class="col-lg-4 col-12">
