@@ -16,7 +16,11 @@ import { AomOverlay, OverlayConfig, OverlayAnimationConfig, OVERLAY_DATA, Angula
 })
 export class TestOverlayComponent implements OnInit {
 
-  constructor(private overlayService: AngularOverlayManagerService, private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any)  { }
+  public overlayData: string;
+
+  constructor(private overlayService: AngularOverlayManagerService, private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any)  {
+    this.overlayData = JSON.stringify(data);
+   }
 
   ngOnInit() {
   }

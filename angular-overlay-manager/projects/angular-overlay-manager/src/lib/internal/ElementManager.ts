@@ -20,7 +20,8 @@ export class ElementManager{
     {
         let dynamicComponentRef = this.createAndInitializeOverlayContainer(component);        
         this.document.body.appendChild(dynamicComponentRef.location.nativeElement);
-
+        this.appRef.attachView(dynamicComponentRef.hostView);
+        
         return dynamicComponentRef;
     }
 

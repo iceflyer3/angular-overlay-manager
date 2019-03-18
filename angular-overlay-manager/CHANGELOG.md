@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2019-02-21
+### Fixed
+Fixed a bug that was preventing the dynamic components from data binding data passed to them in their template. 
+
 ## [2.1.1] - 2019-02-24
 ### Added
 The `AomOverlayRef` that is returned when opening an overlay now supports a `forceCancel()` function. This is useful for some overlays (such as those that only serve informational purposes such as to provide status information) and thus might need to close themselves without any user interaction.
