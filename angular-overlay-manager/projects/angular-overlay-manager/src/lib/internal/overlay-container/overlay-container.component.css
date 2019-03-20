@@ -20,12 +20,14 @@
     margin: initial;
 }
 
+.aom-content{
+    pointer-events: auto;
+}
+
 .aom-flex-container{    
     display: flex;
     flex-direction: row;
     pointer-events: none;
-
-    /* Default bootstrap settings */
     position: fixed;
     top: 0;
     left: 0;
