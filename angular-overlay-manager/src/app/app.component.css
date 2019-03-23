@@ -11,6 +11,10 @@
     padding-right: 0rem;
 }
 
+.overlay-dropdown-option{
+    cursor: pointer;
+}
+
 .code-block{
     background-color: #333333;
     color: white;
