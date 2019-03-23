@@ -22,11 +22,13 @@ npm install angular-overlay-manager
 ```
 
 ### Configuring a component for use as an overlay
-An overlay component must set the ID attribute of the top level element of the HTML template to **"aom-overlay"**. For example, if you wanted a bootstrap style modal dialog the html in the template of your component would look like this. 
+An overlay component must set the ID attribute of the top level element of the HTML template to **"aom-overlay"**. The component must also apply the `aom-content` class on the "body" element of the overlay (the element which contains the content of the overlay).   
+
+For example, if you wanted a bootstrap style modal dialog the html in the template of your component would look like this. 
 ```html
 <div class="modal" id="aom-overlay">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content aom-content">
       <div class="modal-header">
         ...
       </div>

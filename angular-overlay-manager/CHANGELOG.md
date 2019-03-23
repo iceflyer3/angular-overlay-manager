@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2019-02-21
+## [2.1.3] - 2019-03-23
+### Fixed
+Fixed a bug that was preventing non-bootstrap style modal overlays from receiving click events and the manager being slightly more opinionated about the dimesions of an overlay than it should be. 
+
+### Added
+Added several new pre-defined overlay examples to the demo application. These are not customizable as the original one is but should allow for better testing and demonstration of a wider range of use cases. 
+
+## [2.1.2] - 2019-03-18
 ### Fixed
 Fixed a bug that was preventing the dynamic components from data binding data passed to them in their template. 
 
