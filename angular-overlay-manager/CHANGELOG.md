@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2019-02-21
+## [2.1.2] - 2019-03-23
+### Changed
+Added a note to the README that details a bug that was discovered for non-bootstrap style modal overlays and how to work around it. This will be fixed in the next version of the library.
+
+### Fixed
+Incorrect title (version number / date) on the last element in the CHANGELOG 
+
+## [2.1.2] - 2019-03-18
 ### Fixed
 Fixed a bug that was preventing the dynamic components from data binding data passed to them in their template. 
 
