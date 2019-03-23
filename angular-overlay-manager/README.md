@@ -40,6 +40,15 @@ An overlay component must set the ID attribute of the top level element of the H
 </div>
 ```
 
+> NOTE: There is a known bug in this and earlier versions of the library where the `pointer-events` css
+> property is not correctly set on the body element of the overlay for non-bootstrap modal overlays that prevents 
+> the overlay from receiving click events.
+> In the example above the body element is the div with the `modal-content` class.
+>
+> As it turns out the bootstrap `modal-content` class "helpfully" sets `pointer-events: auto` for you.
+>
+> As a workaround to this issue you must set `pointer-events: auto` on the body element of your overlay component 
+> in order to receive click events if you are not using a bootstrap style modal as your overlay. 
 
 You must also add the component to the `entryComponents` array of your `NgModule`. 
 
