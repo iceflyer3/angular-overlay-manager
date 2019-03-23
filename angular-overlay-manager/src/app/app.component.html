@@ -8,7 +8,7 @@
 <div class="d-flex w-100 h-100 justify-content-lg-center align-items-lg-center">
   <div class="container-fluid">
 
-    <div class="row" *ngIf="selectedOverlay == OverlaySelectionOptions.Configurable">
+    <div class="row">
       <div class="col-lg-4 offset-lg-2 col-12 mb-2">
         <h4> Overlay Configuration </h4>
         <div class="form-check">
@@ -90,18 +90,7 @@
 
     <div class="row mb-4">
       <div class="col-lg-8 offset-lg-2 col-12">
-          <div class="btn-group btn-lg w-100 show-overlay-button">
-            <button type="button" class="btn-primary btn-block" (click)="showOverlay()">Show {{ OverlaySelectionOptions[selectedOverlay].replace('_', ' ') }} Overlay</button>
-            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#" (click)="setNewOverlaySelection(OverlaySelectionOptions.Configurable)">Configurable</a>
-              <a class="dropdown-item" href="#" (click)="setNewOverlaySelection(OverlaySelectionOptions.Left_Nav)">Left Nav</a>
-              <a class="dropdown-item" href="#" (click)="setNewOverlaySelection(OverlaySelectionOptions.Snackbar)">Snackbar</a>
-              <a class="dropdown-item" href="#" (click)="setNewOverlaySelection(OverlaySelectionOptions.Bottom_Sheet)">Bottom Sheet</a>
-            </div>
-          </div>
+          <span class="btn btn-primary w-100" type="button" (click)="showOverlay()">Show Overlay</span>
       </div>
     </div>
     

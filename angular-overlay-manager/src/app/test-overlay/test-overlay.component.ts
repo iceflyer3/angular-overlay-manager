@@ -10,11 +10,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { AomOverlay, OverlayConfig, OverlayAnimationConfig, OVERLAY_DATA, AngularOverlayManagerService, OverlayLocation, OverlayAnimation, OverlayAnimationStartPoint, OverlayType } from 'angular-overlay-manager';
 
 @Component({
-  selector: 'app-configurable-overlay',
-  templateUrl: './configurable-overlay.component.html',
-  styleUrls: ['./configurable-overlay.component.scss']
+  selector: 'app-test-overlay',
+  templateUrl: './test-overlay.component.html',
+  styleUrls: ['./test-overlay.component.scss']
 })
-export class ConfigurableOverlayComponent implements OnInit {
+export class TestOverlayComponent implements OnInit {
 
   public overlayData: string;
 
@@ -44,6 +44,6 @@ export class ConfigurableOverlayComponent implements OnInit {
       animationStartPoint: OverlayAnimationStartPoint.Left,
       type: OverlayType.Modal
     };
-    this.overlayService.open(ConfigurableOverlayComponent, overlayConfig, overlayAnimationConfig);
+    this.overlayService.open(TestOverlayComponent, overlayConfig, overlayAnimationConfig);
   }
 }
