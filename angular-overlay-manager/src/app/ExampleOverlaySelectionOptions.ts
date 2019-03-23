@@ -6,17 +6,9 @@
     for the full license details.
 */
 
-.show-overlay-button{
-    padding-left: 0rem;
-    padding-right: 0rem;
-}
-
-.code-block{
-    background-color: #333333;
-    color: white;
-    padding: 1rem 2rem 1rem 4rem;
-}
-
-.single-line-snippet{
-    white-space: pre-line;
+export enum ExampleOverlaySelectionOptions{
+    Configurable,
+    Left_Nav,
+    Snackbar,
+    Bottom_Sheet
 }

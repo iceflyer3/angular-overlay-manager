@@ -10,9 +10,6 @@
 #aom-overlay{
     display: block !important;
     position: static !important;
-
-    width: auto !important;
-    height: auto !important;
 }
 
 #aom-overlay div 
@@ -20,12 +17,14 @@
     margin: initial;
 }
 
+.aom-content{
+    pointer-events: auto;
+}
+
 .aom-flex-container{    
     display: flex;
     flex-direction: row;
     pointer-events: none;
-
-    /* Default bootstrap settings */
     position: fixed;
     top: 0;
     left: 0;
