@@ -11,6 +11,14 @@ Fixed a bug that was preventing non-bootstrap style modal overlays from receivin
 ### Added
 Added several new pre-defined overlay examples to the demo application. These are not customizable as the original one is but should allow for better testing and demonstration of a wider range of use cases. 
 
+
+## [2.1.2] - 2019-03-23
+### Changed
+Added a note to the README that details a bug that was discovered for non-bootstrap style modal overlays and how to work around it. This will be fixed in the next version of the library.
+
+### Fixed
+Incorrect title (version number / date) on the last element in the CHANGELOG 
+
 ## [2.1.2] - 2019-03-18
 ### Fixed
 Fixed a bug that was preventing the dynamic components from data binding data passed to them in their template. 
