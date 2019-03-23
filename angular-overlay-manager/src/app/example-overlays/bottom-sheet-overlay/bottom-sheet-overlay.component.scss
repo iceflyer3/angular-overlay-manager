@@ -6,17 +6,16 @@
     for the full license details.
 */
 
-.show-overlay-button{
-    padding-left: 0rem;
-    padding-right: 0rem;
-}
+.bottom-sheet
+{   
+    height: auto;
+    min-height: 40rem;
+    max-height: 40rem;
 
-.code-block{
-    background-color: #333333;
-    color: white;
-    padding: 1rem 2rem 1rem 4rem;
-}
+    width: auto;
+    min-width: 40rem;
+    max-width: 50rem;
 
-.single-line-snippet{
-    white-space: pre-line;
+    overflow-x: hidden;
+    overflow-y: scroll;   
 }

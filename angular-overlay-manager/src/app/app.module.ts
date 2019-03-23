@@ -13,12 +13,21 @@ import { FormsModule } from '@angular/forms';
 import { AngularOverlayManagerModule } from 'angular-overlay-manager';
 
 import { AppComponent } from './app.component';
-import { TestOverlayComponent } from './test-overlay/test-overlay.component';
+
+// Example Overlays
+import { ConfigurableOverlayComponent } from './example-overlays/configurable-overlay/configurable-overlay.component';
+import { SnackbarOverlayComponent } from './example-overlays/snackbar-overlay/snackbar-overlay.component';
+import { BottomSheetOverlayComponent } from './example-overlays/bottom-sheet-overlay/bottom-sheet-overlay.component';
+import { LeftNavOverlayComponent } from './example-overlays/left-nav-overlay/left-nav-overlay.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestOverlayComponent
+    ConfigurableOverlayComponent,
+    SnackbarOverlayComponent,
+    BottomSheetOverlayComponent,
+    LeftNavOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +36,11 @@ import { TestOverlayComponent } from './test-overlay/test-overlay.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [TestOverlayComponent]
+  entryComponents: [
+    ConfigurableOverlayComponent,
+    SnackbarOverlayComponent,
+    BottomSheetOverlayComponent,
+    LeftNavOverlayComponent
+  ]
 })
 export class AppModule { }
