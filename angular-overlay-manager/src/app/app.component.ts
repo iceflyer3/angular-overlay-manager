@@ -36,6 +36,7 @@ export class AppComponent {
 
   public OverlaySelectionOptions = ExampleOverlaySelectionOptions;
 
+  public selectedOverlay: ExampleOverlaySelectionOptions;
   public location: OverlayLocation;
   public animation: OverlayAnimation;
   public animationStartPoint: OverlayAnimationStartPoint;
@@ -45,7 +46,6 @@ export class AppComponent {
   public listenToOverlayClose: boolean;
   public shouldForceClose: boolean;
 
-  private selectedOverlay: ExampleOverlaySelectionOptions;
   private overlayConfig: OverlayConfig
   private overlayAnimationConfig: OverlayAnimationConfig;
   
