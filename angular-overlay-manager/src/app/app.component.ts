@@ -205,7 +205,7 @@ export class AppComponent {
     }
   }
 
-  private showSnackbarRecursive(overlayConfig: OverlayConfig, animationConfig: OverlayAnimationConfig, remainingIterations: number)
+  private showSnackbarRecursive(overlayConfig: AomOverlayConfig, animationConfig: AomOverlayAnimationConfig, remainingIterations: number)
   {
     if (remainingIterations > 0)
     {
