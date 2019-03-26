@@ -37,6 +37,8 @@ export class AppComponent {
   public OverlaySelectionOptions = ExampleOverlaySelectionOptions;
 
   public selectedOverlay: ExampleOverlaySelectionOptions;
+
+  // Configurable Overlay variables
   public location: OverlayLocation;
   public animation: OverlayAnimation;
   public animationStartPoint: OverlayAnimationStartPoint;
@@ -45,6 +47,10 @@ export class AppComponent {
   public closeOnScrimClick: boolean;
   public listenToOverlayClose: boolean;
   public shouldForceClose: boolean;
+
+  // Snackbar Overlay variables
+  public showSuccessiveSnackbars: boolean;
+  public successiveSnackbarCount: number;
 
   private overlayConfig: OverlayConfig
   private overlayAnimationConfig: OverlayAnimationConfig;
@@ -60,6 +66,9 @@ export class AppComponent {
     this.shouldPassData = false;
     this.closeOnScrimClick = true;
     this.listenToOverlayClose = true;
+
+    this.showSuccessiveSnackbars = false;
+    this.successiveSnackbarCount = 2;
     
     this.overlayConfig = {
       shouldCloseOnBackgroundClick: this.closeOnScrimClick
@@ -71,8 +80,6 @@ export class AppComponent {
       animationStartPoint: this.animationStartPoint,
       type: this.type
     };
-
-    console.log(this.OverlaySelectionOptions);
   }
 
   public showOverlay()
@@ -152,7 +159,7 @@ export class AppComponent {
       cancellationTimer = window.setTimeout(() => { overlayRef.forceCancel() }, 3000);
     }
 
-    overlayRef.onClose().subscribe((data: any) => {
+    overlayRef.onClose().then((data: any) => {
       if (this.listenToOverlayClose)
       {
         data ? alert(`Overlay has closed! Returned data: ${JSON.stringify(data)} `) : alert('Overlay has closed! No data was returned.');
@@ -167,7 +174,7 @@ export class AppComponent {
   
   private showSnackbarOrBottomSheetOverlay(selectedOverlay: ExampleOverlaySelectionOptions)
   {
-    let animationConfig = {
+    let animationConfig: OverlayAnimationConfig = {
       location: OverlayLocation.BottomMiddle,
       animation: OverlayAnimation.Slide,
       animationStartPoint: OverlayAnimationStartPoint.Bottom,
@@ -178,11 +185,36 @@ export class AppComponent {
 
     if (selectedOverlay == ExampleOverlaySelectionOptions.Snackbar)
     {
-      this.overlayManager.open(SnackbarOverlayComponent, overlayConfig, animationConfig);
+      if (this.showSuccessiveSnackbars)
+      {
+        this.showSnackbarRecursive(overlayConfig, animationConfig, this.successiveSnackbarCount);
+      }
+      else
+      {
+        this.overlayManager.open(SnackbarOverlayComponent, overlayConfig, animationConfig);
+      }
     }
     else
     {
       this.overlayManager.open(BottomSheetOverlayComponent, overlayConfig, animationConfig);
+    }
+  }
+
+  private showSnackbarRecursive(overlayConfig: OverlayConfig, animationConfig: OverlayAnimationConfig, remainingIterations: number)
+  {
+    if (remainingIterations > 0)
+    {
+      overlayConfig.data = remainingIterations;
+
+      let ref: AomOverlayRef = this.overlayManager.open(SnackbarOverlayComponent, overlayConfig, animationConfig);
+      ref.onClose().then(() => {
+        remainingIterations--;
+        this.showSnackbarRecursive(overlayConfig, animationConfig, remainingIterations);
+      });
+    }
+    else
+    {
+      alert('All snackbars have been shown and then closed!')
     }
   }
 
