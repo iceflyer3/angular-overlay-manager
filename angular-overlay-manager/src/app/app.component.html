@@ -94,6 +94,33 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="selectedOverlay == OverlaySelectionOptions.Snackbar">
+      <div class="col-lg-4 offset-lg-2 col-12 mb-2">
+        <h4>Snackbar Variations</h4>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="showInSuccessionCheckbox" [(ngModel)]="showSuccessiveSnackbars" id="showInSuccessionCheckbox">
+          <label class="form-check-label" for="showInSuccessionCheckbox">
+            Show several in succession
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            <div class="input-group mb-3" *ngIf="showSuccessiveSnackbars">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="animationStartPointSelect">How many?</label>
+              </div>
+              <select class="custom-select" id="animationStartPointSelect" [(ngModel)]="successiveSnackbarCount">
+                <option [value]="2">2</option>
+                <option [value]="3">3</option>
+                <option [value]="4">4</option>
+                <option [value]="5">5</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row mb-4">
       <div class="col-lg-8 offset-lg-2 col-12">
           <div class="btn-group btn-lg w-100 show-overlay-button">

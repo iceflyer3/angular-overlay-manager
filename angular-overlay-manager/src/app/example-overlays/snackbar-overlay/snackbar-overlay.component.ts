@@ -6,8 +6,8 @@
     for the full license details.
 */
 
-import { Component, OnInit } from '@angular/core';
-import { AomOverlay } from 'angular-overlay-manager'
+import { Component, OnInit, Inject } from '@angular/core';
+import { AomOverlay, OVERLAY_DATA } from 'angular-overlay-manager'
 
 @Component({
   selector: 'app-snackbar-overlay',
@@ -16,7 +16,11 @@ import { AomOverlay } from 'angular-overlay-manager'
 })
 export class SnackbarOverlayComponent implements OnInit {
 
-  constructor(private overlay: AomOverlay) { }
+  public snackbarIteration: number;
+
+  constructor(private overlay: AomOverlay, @Inject(OVERLAY_DATA) private data: any) { 
+    this.snackbarIteration = data; 
+  }
 
   ngOnInit() {
     window.setTimeout(() => {
