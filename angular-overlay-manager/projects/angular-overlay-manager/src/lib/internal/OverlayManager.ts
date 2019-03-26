@@ -64,9 +64,9 @@ export class OverlayManager{
         return this.openComponentRef !== null;
     }
 
-    public onClose(): Observable<any>
-    {
-        return this.closeSubject.asObservable();
+    public onClose(): Promise<any>
+    {        
+        return this.closeSubject.toPromise();
     }
 
     private close(data?: any)
