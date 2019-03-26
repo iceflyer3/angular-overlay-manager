@@ -8,8 +8,8 @@
 
 import { Injectable} from '@angular/core';
 
-import { OverlayConfig } from './OverlayConfig';
-import { OverlayAnimationConfig } from './OverlayAnimationConfig';
+import { AomOverlayConfig } from './AomOverlayConfig';
+import { AomOverlayAnimationConfig } from './AomOverlayAnimationConfig';
 import { OverlayManager } from '../internal/OverlayManager';
 import { AomOverlayRef } from './AomOverlayRef';
 
@@ -20,7 +20,7 @@ export class AngularOverlayManagerService {
 
   constructor(private overlayManager: OverlayManager) { }
 
-  public open(component: any, overlayConfig: OverlayConfig, animationConfig: OverlayAnimationConfig){
+  public open(component: any, overlayConfig: AomOverlayConfig, animationConfig: AomOverlayAnimationConfig){
 
     if (!this.overlayManager.hasOpenOverlay())
     {

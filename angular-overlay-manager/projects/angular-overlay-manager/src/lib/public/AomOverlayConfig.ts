@@ -1,3 +1,5 @@
+import { OverlayType } from "./enums/OverlayType";
+
 /*
     This file is part of Angular Overlay Manager which is released under the BSD 3-Clause License.
     You should have received a copy of this license in LICENSE.txt along with this file. 
@@ -6,7 +8,9 @@
     for the full license details.
 */
 
-export interface OverlayConfig{
+export interface AomOverlayConfig{
     data?: any,
+    type: OverlayType,
+    useScrimBackground: boolean,
     shouldCloseOnBackgroundClick: boolean
 }

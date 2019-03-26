@@ -11,8 +11,8 @@
  */
 
 export * from './lib/public/angular-overlay-manager.service';
-export * from './lib/public/OverlayConfig';
-export * from './lib/public/OverlayAnimationConfig';
+export * from './lib/public/AomOverlayConfig';
+export * from './lib/public/AomOverlayAnimationConfig';
 export * from './lib/public/AomOverlay';
 export * from './lib/public/AomOverlayRef';
 export * from './lib/public/enums/OverlayAnimation';
