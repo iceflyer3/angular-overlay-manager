@@ -9,8 +9,8 @@ import { Component } from '@angular/core';
 import { 
   AngularOverlayManagerService,
   AomOverlayRef,
-  OverlayConfig, 
-  OverlayAnimationConfig, 
+  AomOverlayConfig, 
+  AomOverlayAnimationConfig, 
   OverlayLocation, 
   OverlayAnimation, 
   OverlayAnimationStartPoint, 
@@ -40,14 +40,15 @@ export class AppComponent {
   public location: OverlayLocation;
   public animation: OverlayAnimation;
   public animationStartPoint: OverlayAnimationStartPoint;
-  public type: OverlayType
+  public type: OverlayType;
   public shouldPassData: boolean;
+  public usesScrim: boolean;
   public closeOnScrimClick: boolean;
   public listenToOverlayClose: boolean;
   public shouldForceClose: boolean;
 
-  private overlayConfig: OverlayConfig
-  private overlayAnimationConfig: OverlayAnimationConfig;
+  private overlayConfig: AomOverlayConfig;
+  private overlayAnimationConfig: AomOverlayAnimationConfig;
   
 
   constructor(private overlayManager: AngularOverlayManagerService) { 
@@ -58,21 +59,21 @@ export class AppComponent {
     this.animationStartPoint = OverlayAnimationStartPoint.Left;
     this.type = OverlayType.Modal;
     this.shouldPassData = false;
+    this.usesScrim = true;
     this.closeOnScrimClick = true;
     this.listenToOverlayClose = true;
     
     this.overlayConfig = {
+      type: this.type,
+      useScrimBackground: true,
       shouldCloseOnBackgroundClick: this.closeOnScrimClick
     }
 
     this.overlayAnimationConfig = {
       location: this.location,
       animation: this.animation,
-      animationStartPoint: this.animationStartPoint,
-      type: this.type
+      animationStartPoint: this.animationStartPoint      
     };
-
-    console.log(this.OverlaySelectionOptions);
   }
 
   public showOverlay()
@@ -96,8 +97,6 @@ export class AppComponent {
     this.selectedOverlay = newSelection;
   }
 
-  // Generating the example code strings is actually more readable this way than if we just did them
-  // straight in the template. This isn't what I would call pretty but it is preferable to the alternative.
   public getOverlayConfigExampleCodeString()
   {
     switch(this.selectedOverlay)
@@ -137,11 +136,12 @@ export class AppComponent {
       location: Number(this.location),
       animation: Number(this.animation),
       animationStartPoint: Number(this.animationStartPoint),
-      type: Number(this.type)
     }
     this.overlayConfig = {
+      type: this.type,
+      useScrimBackground: this.usesScrim,
+      shouldCloseOnBackgroundClick: this.closeOnScrimClick,
       data: this.shouldPassData ? this.getTestObject() : null,
-      shouldCloseOnBackgroundClick: this.closeOnScrimClick
     }
 
     let overlayRef: AomOverlayRef = this.overlayManager.open(ConfigurableOverlayComponent, this.overlayConfig, this.overlayAnimationConfig);
@@ -171,10 +171,13 @@ export class AppComponent {
       location: OverlayLocation.BottomMiddle,
       animation: OverlayAnimation.Slide,
       animationStartPoint: OverlayAnimationStartPoint.Bottom,
-      type: OverlayType.Docked
     };
     
-    let overlayConfig: OverlayConfig = {shouldCloseOnBackgroundClick: false};
+    let overlayConfig: AomOverlayConfig = {
+      type: OverlayType.Docked,
+      useScrimBackground: true,
+      shouldCloseOnBackgroundClick: false
+    };
 
     if (selectedOverlay == ExampleOverlaySelectionOptions.Snackbar)
     {
@@ -191,14 +194,19 @@ export class AppComponent {
     let animationConfig = {
       location: OverlayLocation.TopLeft,
       animation: OverlayAnimation.Slide,
-      animationStartPoint: OverlayAnimationStartPoint.Left,
-      type: OverlayType.Docked
+      animationStartPoint: OverlayAnimationStartPoint.Left
     };
     
-    let overlayConfig: OverlayConfig = {shouldCloseOnBackgroundClick: true};
+    let overlayConfig: AomOverlayConfig = {
+      type: OverlayType.Docked,
+      useScrimBackground: true, 
+      shouldCloseOnBackgroundClick: true
+    };
     this.overlayManager.open(LeftNavOverlayComponent, overlayConfig, animationConfig);
   }
 
+  // Generating the example code strings is actually more readable this way than if we just did them
+  // straight in the template. This isn't what I would call pretty but it is preferable to the alternative.
   private getAnimationConfigExampleCodeStringForConfigurableOverlay()
   {
     let codeString = '\n';
@@ -206,7 +214,6 @@ export class AppComponent {
     codeString += `\n\tlocation: OverlayLocation.${OverlayLocation[this.location]}`;
     codeString += `\n\tanimation: OverlayAnimation.${OverlayAnimation[this.animation]}`;
     codeString += `\n\tanimationStartPoint: AnimationStartPoint.${OverlayAnimationStartPoint[this.animationStartPoint]}`;
-    codeString += `\n\ttype: OverlayType.${OverlayType[this.type]}`;
     codeString += '\n}';
     return codeString;
   }
@@ -218,7 +225,6 @@ export class AppComponent {
     codeString += `\n\tlocation: OverlayLocation.BottomMiddle`;
     codeString += `\n\tanimation: OverlayAnimation.Slide`;
     codeString += `\n\tanimationStartPoint: OverlayAnimationStartPoint.Bottom`;
-    codeString += `\n\ttype: OverlayType.Docked`;
     codeString += '\n}';
     return codeString;
   }
@@ -230,7 +236,6 @@ export class AppComponent {
     codeString += `\n\tlocation: OverlayLocation.TopLeft`;
     codeString += `\n\tanimation: OverlayAnimation.Slide`;
     codeString += `\n\tanimationStartPoint: OverlayAnimationStartPoint.Left`;
-    codeString += `\n\ttype: OverlayType.Docked`;
     codeString += '\n}';
     return codeString;
   }
@@ -244,7 +249,8 @@ export class AppComponent {
     {
       codeString += `\n\tdata: ${JSON.stringify(this.getTestObject())}`;
     }
-    
+    codeString += `\n\ttype: OverlayType.${OverlayType[this.type]}`;
+    codeString += `\n\tuseScrimBackground: ${this.usesScrim}`;
     codeString += `\n\tshouldCloseOnBackgroundClick: ${this.closeOnScrimClick}`;
     codeString += '\n}';
     return codeString;
@@ -254,6 +260,8 @@ export class AppComponent {
   {
     let codeString = '\n';
     codeString += 'overlayConfig = {';
+    codeString += `\n\ttype: OverlayType.Docked`;
+    codeString += `\n\tuseScrimBackground: true`;
     codeString += `\n\tshouldCloseOnBackgroundClick: false`;
     codeString += '\n}';
     return codeString;
@@ -263,6 +271,8 @@ export class AppComponent {
   {
     let codeString = '\n';
     codeString += 'overlayConfig = {';
+    codeString += `\n\ttype: OverlayType.Docked`;
+    codeString += `\n\tuseScrimBackground: true`;
     codeString += `\n\tshouldCloseOnBackgroundClick: true`;
     codeString += '\n}';
     return codeString;
