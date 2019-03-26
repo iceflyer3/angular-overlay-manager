@@ -10,11 +10,12 @@ import { RendererFactory2, Inject, Renderer2 } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
 import { of } from "rxjs";
 
-import { OverlayAnimationConfig } from "../public/OverlayAnimationConfig";
+import { AomOverlayAnimationConfig } from "../public/AomOverlayAnimationConfig";
 import { OverlayAnimationStartPoint } from "../public/enums/OverlayAnimationStartPoint";
 import { OverlayLocation } from "../public/enums/OverlayLocation";
 import { OverlayAnimation } from "../public/enums/OverlayAnimation";
 import { OverlayType } from "../public/enums/OverlayType";
+import { AomOverlayConfig } from "../public/AomOverlayConfig";
 
 
 export class AnimationManager {
@@ -23,7 +24,7 @@ export class AnimationManager {
 
     constructor(private rendererFactory: RendererFactory2, @Inject(DOCUMENT) private document :any) { }
 
-    public applyConfiguration(config: OverlayAnimationConfig)
+    public applyConfiguration(config: AomOverlayAnimationConfig, overlayOptions: AomOverlayConfig)
     {
         this.renderer = this.rendererFactory.createRenderer(null, null);
         let overlayElement = this.document.getElementById("aom-overlay");
@@ -31,7 +32,7 @@ export class AnimationManager {
         let containerScrim = this.document.getElementById("aom-flexbox-container-scrim");
         
         // Initialize the scrim and the desired animation
-        this.initializeScrimAnimation(containerScrim);
+        this.initializeScrimAnimation(containerScrim, overlayOptions);
 
         switch(config.animation)
         {
@@ -46,10 +47,10 @@ export class AnimationManager {
         this.forceDomReflowFlush(overlayElement);
 
         // Play the "enter" of the initialized animation
-        this.triggerAnimation(overlayElement, containerScrim, config);
+        this.triggerAnimation(overlayElement, containerScrim, config, overlayOptions);
     }
 
-    public triggerClose(config: OverlayAnimationConfig): Promise<{}>{
+    public triggerClose(config: AomOverlayAnimationConfig): Promise<{}>{
      
         let overlayElement = this.document.getElementById("aom-overlay");
         let containerScrim = this.document.getElementById("aom-flexbox-container-scrim");
@@ -70,13 +71,13 @@ export class AnimationManager {
         return of().toPromise();
     }
 
-    private triggerAnimation(element: any, scrim: any, config: OverlayAnimationConfig)
+    private triggerAnimation(element: any, scrim: any, config: AomOverlayAnimationConfig, overlayOptions: AomOverlayConfig)
     {        
         // Trigger the scrim animation
         this.renderer.addClass(scrim, 'aom-scrim-open');
 
         // Apply the proper "location" class to un-do translation and trigger entry transition
-        let overlayPositionClass = this.getOverlayClassForType(config.type);
+        let overlayPositionClass = this.getOverlayClassForType(overlayOptions.type);
         this.renderer.addClass(element, overlayPositionClass); 
 
         switch(config.animation)
@@ -89,13 +90,20 @@ export class AnimationManager {
         }
     }
 
-    private initializeScrimAnimation(scrim: any)
+    private initializeScrimAnimation(scrim: any, overlayOptions: AomOverlayConfig)
     {
-        this.renderer.addClass(scrim, 'aom-scrim-transition');
-        this.renderer.addClass(scrim, 'aom-scrim-close');
+        if (overlayOptions.useScrimBackground)
+        {
+            this.renderer.addClass(scrim, 'aom-scrim-transition');
+            this.renderer.addClass(scrim, 'aom-scrim-close');
+        }
+        else
+        {
+            this.renderer.addClass(scrim, 'aom-scrim-none');
+        }
     }
 
-    private initializeSlideAnimation(container: any, element: any, config: OverlayAnimationConfig)
+    private initializeSlideAnimation(container: any, element: any, config: AomOverlayAnimationConfig)
     {   
         // Configure slide transition
         this.renderer.addClass(element, 'aom-trans-anim-slide');
@@ -110,7 +118,7 @@ export class AnimationManager {
         this.renderer.addClass(element, overlayClass);
     }
 
-    private initializeFadeAnimation(container: any, element: any, config: OverlayAnimationConfig)
+    private initializeFadeAnimation(container: any, element: any, config: AomOverlayAnimationConfig)
     {
         this.renderer.addClass(element, 'aom-trans-anim-fade');
 
