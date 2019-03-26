@@ -79,7 +79,7 @@ export class YourAppModule {
 
 ```
 
-Import the AngularOverlayManagerService, the overlay configuration classes, and the enums that contain the configuration options into the component that will open the overlay.
+Import the `AngularOverlayManagerService`, the overlay configuration classes, and the enums that contain the configuration options into the component that will open the overlay.
 ```typescript
 
 import { 
@@ -108,15 +108,16 @@ Configure the overlay options and then call `open(ComponentType, OverlayConfig, 
 
 ...
 
-let overlayConfig = {
+let overlayConfig: AomOverlayConfig = {
+      type: OverlayType.Modal,
+      useScrimBackground: true,
       shouldCloseOnBackgroundClick: true;
     }
 
-let overlayAnimationConfig = {
+let overlayAnimationConfig: AomOverlayAnimationConfig = {
     location: OverlayLocation.TopLeft,
     animation: OverlayAnimation.Slide,
     animationStartPoint: OverlayAnimationStartPoint.Left,
-    type: OverlayType.Modal
 };
 
 this.overlayManager.open(YourOverlayComponent, overlayConfig, overlayAnimationConfig);
@@ -192,8 +193,9 @@ If you have some data that you would like pass to the overlay then you'll need t
 
 let sampleData = 'Hello world!';
 
-let overlayConfig = {
+let overlayConfig: AomOverlayConfig = {
       data: sampleData;
+      useScrimBackground: true,
       shouldCloseOnBackgroundClick: true;
     }
 
@@ -257,7 +259,7 @@ export class YourOverlayComponent implements OnInit {
 ### Listening to the overlay close event
 If you wish to know when the overlay has closed the library exposes an `onClose` event that you may listen for. 
 
-Calls to `open(...)` on the overlay service will return an `AomOverlayRef` instance which exposes an `onClose()` function that returns an observable that you may subscribe to. 
+Calls to `open(...)` on the overlay service will return an `AomOverlayRef` instance which exposes an `onClose()` function that returns a Promise that you may use to be notified of when the overlay has closed. 
 
 ```typescript
 
@@ -274,9 +276,9 @@ export class YourComponent {
 
     public openOverlay(){
         ...
-        let aomOverlayRef: AomOverlayRef = this.overlayManager.open(YourOverlayComponent, this.overlayConfig, this.overlayAnimationConfig);
+        let overlayRef: AomOverlayRef = this.overlayManager.open(YourOverlayComponent, this.overlayConfig, this.overlayAnimationConfig);
 
-        overlayRef.onClose().subscribe((data) => {
+        overlayRef.onClose().then((data) => {
             ...
         });  
     }
@@ -284,7 +286,7 @@ export class YourComponent {
 
 ```
 
-The observable returned by `onClose()` will pass back any data that was passed to the `close(data)` function of the `AomOverlay`. Calls to the `cancel()` function of the `AomOverlay`, the `forceCancel()` function of the `AomOverlayRef`, or clicks on the background to close the overlay will never return any data. 
+The Promise returned by `onClose()` will pass back any data that was passed to the `close(data)` function of the `AomOverlay`. Calls to the `cancel()` function of the `AomOverlay`, the `forceCancel()` function of the `AomOverlayRef`, or clicks on the background to close the overlay (when the scrim is being used) will never return any data. 
 
 ### Opening nested overlays
 This library does **not** support opening nested overlays. There are **not** currently any plans to add support for this feature. 
