@@ -141,13 +141,14 @@ export class AppComponent {
 
   private showConfigurableOverlay()
   {
+    // HTML <input>'s get bound as a string so we have to cast the inputs tied to enums back to their numerical value or they will appear to be broken
     this.overlayAnimationConfig = {
       location: Number(this.location),
       animation: Number(this.animation),
       animationStartPoint: Number(this.animationStartPoint),
     }
     this.overlayConfig = {
-      type: this.type,
+      type: Number(this.type),
       useScrimBackground: this.usesScrim,
       shouldCloseOnBackgroundClick: this.closeOnScrimClick,
       data: this.shouldPassData ? this.getTestObject() : null,
