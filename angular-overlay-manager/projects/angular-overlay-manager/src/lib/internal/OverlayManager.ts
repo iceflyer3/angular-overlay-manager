@@ -9,9 +9,9 @@
 import { ComponentRef, Inject } from "@angular/core";
 import { Subject, Observable } from "rxjs";
 
-import { OverlayConfig } from "../public/OverlayConfig";
+import { AomOverlayConfig } from "../public/AomOverlayConfig";
 import { OverlayContainerComponent } from "./overlay-container/overlay-container.component";
-import { OverlayAnimationConfig } from "../../public_api";
+import { AomOverlayAnimationConfig } from "../../public_api";
 import { ElementManager } from "./ElementManager";
 import { AnimationManager } from "./AnimationManager";
 import { APP_CONFIG } from "./dependency-injection/internal-di-tokens";
@@ -22,11 +22,11 @@ export class OverlayManager{
     
     private closeSubject: Subject<any>;
     private openComponentRef: ComponentRef<OverlayContainerComponent> = null;
-    private openComponentAnimationConfig: OverlayAnimationConfig;
+    private openComponentAnimationConfig: AomOverlayAnimationConfig;
 
     constructor(private elementManager: ElementManager, private animationManager: AnimationManager, private overlayDataAdapter: OverlayDataAdapter, @Inject(APP_CONFIG) private appConfig: IAppConfig) {}
 
-    public openOverlay(component: any, overlayConfig: OverlayConfig, animationConfig: OverlayAnimationConfig)
+    public openOverlay(component: any, overlayConfig: AomOverlayConfig, animationConfig: AomOverlayAnimationConfig)
     {
         this.closeSubject = new Subject<any>();
         this.openComponentAnimationConfig = animationConfig;
@@ -45,7 +45,7 @@ export class OverlayManager{
             });
         }
 
-        this.animationManager.applyConfiguration(animationConfig);
+        this.animationManager.applyConfiguration(animationConfig, overlayConfig);
     }
 
     public closeOverlay(data?: any)
@@ -64,9 +64,9 @@ export class OverlayManager{
         return this.openComponentRef !== null;
     }
 
-    public onClose(): Observable<any>
-    {
-        return this.closeSubject.asObservable();
+    public onClose(): Promise<any>
+    {        
+        return this.closeSubject.toPromise();
     }
 
     private close(data?: any)

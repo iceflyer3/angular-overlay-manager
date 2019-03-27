@@ -9,11 +9,9 @@
 import { OverlayLocation } from "./enums/OverlayLocation";
 import { OverlayAnimation } from "./enums/OverlayAnimation";
 import { OverlayAnimationStartPoint } from "./enums/OverlayAnimationStartPoint";
-import { OverlayType } from "./enums/OverlayType";
 
-export interface OverlayAnimationConfig{
+export interface AomOverlayAnimationConfig{
     location: OverlayLocation,
     animation: OverlayAnimation,
     animationStartPoint: OverlayAnimationStartPoint
-    type: OverlayType
 }
